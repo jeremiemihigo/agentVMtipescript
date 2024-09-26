@@ -8,8 +8,8 @@ import React from "react";
 import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 
 // const link = "https://bboxxother.onrender.com";
-//const link = "https://visite.bboxxvm.com";
-const link = "https://bboxxbackendtest.onrender.com";
+const link = "https://visite.bboxxvm.com";
+//const link = "https://bboxxbackendtest.onrender.com";
 //const link = "http://localhost:40002";
 
 export const lien = `${link}/bboxx/support`;
