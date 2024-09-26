@@ -1,0 +1,77 @@
+.lot {
+  background-color: rgb(40, 8, 82);
+  padding: 5px;
+  text-align: center;
+  font-weight: bolder;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  width: 100%;
+}
+.lot > p,
+.conforme > p,
+.attente > p,
+.nConforme > p {
+  font-size: 14px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.lot .titleLot {
+  background-color: rgb(40, 8, 82);
+  padding: 5px;
+  text-align: center;
+  font-weight: bolder;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+.contentLot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contentLot > div {
+  width: 35%;
+}
+.contentTitle {
+  font-size: 12px;
+  text-align: center;
+}
+.contentData {
+  font-weight: bolder;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nConforme {
+  color: red;
+  font-weight: bolder;
+  margin-top: 10px;
+}
+.paper .loading,
+.paper .loading,
+.paper .loading {
+  font-size: 12px;
+  text-align: center;
+}
+.paper .content,
+.paper .content,
+.paper .content {
+  font-weight: bolder;
+  font-size: 14px;
+  text-align: center;
+}
+.paper .title,
+.paper .title,
+.paper .title {
+  font-size: 11px;
+  text-align: center;
+}
+.paper {
+  margin: 5px;
+  padding: 10px;
+}
+.value {
+  text-align: center;
+  font-weight: bolder !important;
+}

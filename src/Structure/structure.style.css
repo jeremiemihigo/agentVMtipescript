@@ -1,0 +1,111 @@
+.listeImage {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(214, 214, 232);
+}
+.listeImage > img {
+  height: 50px;
+  width: 60px;
+  margin-right: 10px;
+}
+.listeImage {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 13px;
+}
+.reponseListe {
+  padding: 5px;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.reponseListe > p {
+  margin-bottom: 5px;
+}
+.agentCss {
+  background-color: rgb(207, 223, 205);
+  padding: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  width: 100%;
+}
+.coCSS {
+  background-color: rgb(255, 255, 255);
+  padding: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 1px 1px;
+  width: 100%;
+}
+.deleteMessage {
+  text-align: right;
+  float: right;
+}
+.itemButtons {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+.itemButtons > div {
+  width: 50%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  background-color: rgb(233, 233, 241);
+}
+.itemButtons > div > span {
+  font-size: 12px;
+  margin-left: 10px;
+}
+.agent {
+  font-size: 12px;
+  text-align: justify;
+  padding: 3px;
+  font-weight: 700;
+  background-color: rgb(208, 218, 212);
+}
+.callcenter {
+  font-size: 12px;
+  text-align: justify;
+  padding: 3px;
+  padding: 2px 4px;
+  font-weight: 700;
+  margin-bottom: 1px;
+  background-color: rgb(179, 177, 199);
+}
+.messageText {
+  margin: 0;
+  padding: 0;
+}
+.heure {
+  text-align: right;
+  font-size: 10px;
+}
+.messagesToutes {
+  background-color: #dedede;
+  margin-bottom: 10px;
+}
+.listeAll {
+  height: 100vh;
+}
+
+.listeReponses {
+  height: 90vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+.actionbtn {
+  background-color: rgb(15, 15, 94);
+  padding: 2px 13px;
+  color: white;
+  border-color: rgb(15, 15, 94);
+  font-weight: bolder;
+}
+.contentDemande {
+  display: flex;
+  margin: 2px;
+}
