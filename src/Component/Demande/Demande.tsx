@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Input, message } from "antd";
 import axios from "axios";
+import imageCompression from "browser-image-compression";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IInitiale } from "../../Interface/Demande";
@@ -39,7 +40,6 @@ function Demande() {
   });
   const [value, setValue] = React.useState("");
   const [generateLoc, setGenerateLoc] = React.useState(false);
-  const [file, setImage] = React.useState<any>();
   const [satSelect, setSatSelect] = React.useState<ISat | null>(null);
 
   const [raisonSelect, setRaisonSelect] = React.useState<IRaison | null>(null);
@@ -83,6 +83,28 @@ function Demande() {
       duration: 5,
     });
   };
+  const [compressedFile, setCompressedFile] = React.useState<File | null>(null);
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+    };
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      setCompressedFile(compressedFile);
+      console.log("Image compressée:", compressedFile);
+    } catch (error) {
+      console.error("Erreur lors de la compression:", error);
+    }
+  };
+
   const navigate = useNavigate();
   const sendData = async (e: any) => {
     try {
@@ -93,7 +115,6 @@ function Demande() {
         satSelect === null ||
         !initial?.cell ||
         (raisonSelect?.raison === "" && raisonRwrite === "") ||
-        !file ||
         value === ""
       ) {
         successAlert(
@@ -105,7 +126,7 @@ function Demande() {
         let days = initial?.jours ? initial?.jours : 0;
 
         const data = new FormData();
-        data.append("file", file);
+        data.append("file", compressedFile as Blob);
         data.append("longitude", "" + location?.longitude);
         data.append("latitude", "" + location?.latitude);
         data.append("altitude", "" + location?.altitude);
@@ -136,7 +157,6 @@ function Demande() {
             sector: "",
             numero: "",
           });
-          setImage("");
           setAutre(false);
           setRaisonSelect(null);
           setSatSelect(null);
@@ -225,16 +245,10 @@ function Demande() {
 
           <div style={{ marginBottom: "10px" }}>
             {/* <UploadImage setFile={setFichier} /> */}
-
             <input
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const file = event.target.files?.[0]; // Use optional chaining in case files is null
-                if (file) {
-                  setImage(file); // Assuming setImage is your state setter function
-                }
-              }}
               type="file"
               accept=".png, .jpg, .jpeg"
+              onChange={handleFileUpload}
             />
           </div>
           <div style={{ marginBottom: "10px" }}>
