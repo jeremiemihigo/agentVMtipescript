@@ -5,7 +5,6 @@ import DetailPlainte from "./Component/ActionSynchro/DetailSynchro";
 import Demande from "./Component/Demande";
 import DemandeUpdate from "./Component/Demande/UpdateDemande";
 import Documentation from "./Component/Documentation";
-import Images from "./Component/Image";
 import Login from "./Component/Login/Login";
 import Paquet from "./Component/Paquet";
 import Profil from "./Component/Profil";
@@ -25,7 +24,7 @@ function App() {
         <Route path="/info" element={<DetailPlainte />} />
         <Route path="/update" element={<DemandeUpdate />} />
         <Route path="/" element={<Login />} />
-        <Route path="/images" element={<Images />} />
+        {/* <Route path="/images" element={<Images />} /> */}
       </Routes>
     </BrowserRouter>
   );
