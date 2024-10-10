@@ -11,6 +11,7 @@ import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 const link = "https://visite.bboxxvm.com";
 //const link = "https://bboxxbackendtest.onrender.com";
 //const link = "http://localhost:40002";
+export const big_data = "https://issuelink.bboxxvm.com/bboxx/support";
 
 export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;

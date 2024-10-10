@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { IDemande } from "../../Interface/IPaquet.js";
 import LoaderGif from "../../Static/LoaderGif.js";
 import Logo from "../../Static/Logo.js";
-import { config, lien } from "../../Static/static.js";
+import { big_data, config } from "../../Static/static.js";
 import Liste from "../../Structure/Listes";
 import "./Paquet.style.css";
 
@@ -30,7 +30,7 @@ function Paquet() {
   const navigation = useNavigate();
   const loading = async () => {
     try {
-      const response = await axios.get(`${lien}/paquet`, config);
+      const response = await axios.get(`${big_data}/paquet`, config);
       if (response.status === 201) {
         localStorage.removeItem("auth");
         localStorage.removeItem("codeAgent");
@@ -53,7 +53,6 @@ function Paquet() {
   const choisirLot = (paquet: IDemande[], critere: string) => {
     setLotSelect({ donner: paquet, critere });
   };
-  console.log(data);
   return (
     <>
       <div style={{ padding: "15px" }}>
