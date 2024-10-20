@@ -8,16 +8,16 @@ import React from "react";
 import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 
 // const link = "https://bboxxother.onrender.com";
-//const link = "https://visite.bboxxvm.com";
-const link = "https://backendcallcenter.onrender.com";
+const link = "https://visite.bboxxvm.com";
 //const link = "http://localhost:40002";
-//export const big_data = "https://issuelink.bboxxvm.com/bboxx/support";
-export const big_data = "https://backendcallcenter.onrender.com/bboxx/support";
+export const big_data = "https://issuelink.bboxxvm.com/bboxx/support";
+//export const big_data = "https://backendcallcenter.onrender.com/bboxx/support";
 
 export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;
 export const lien_image = `${link}/bboxx/image`;
 export const lien_issue = `${link}/issue`;
+
 export const dateFrancais = (donner: string) => {
   let dates = new Date(donner);
   return `${dates.getDate()}/${dates.getMonth() + 1}/${dates.getFullYear()}`;
