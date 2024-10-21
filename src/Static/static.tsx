@@ -7,11 +7,11 @@ import _ from "lodash";
 import React from "react";
 import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 
-//const link = "https://visite.bboxxvm.com";
-const link = "https://backendcallcenter.onrender.com";
+const link = "https://visite.bboxxvm.com";
+//const link = "https://backendcallcenter.onrender.com";
 //const link = "http://localhost:40002";
-//export const big_data = "https://issuelink.bboxxvm.com/bboxx/support";
-export const big_data = "https://backendcallcenter.onrender.com/bboxx/support";
+export const big_data = "https://issuelink.bboxxvm.com/bboxx/support";
+//export const big_data = "https://backendcallcenter.onrender.com/bboxx/support";
 
 export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;
