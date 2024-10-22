@@ -7,6 +7,7 @@ import _ from "lodash";
 import React from "react";
 import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 
+// const link = "https://bboxxother.onrender.com";
 //const link = "https://visite.bboxxvm.com";
 const link = "https://backendcallcenter.onrender.com";
 //const link = "http://localhost:40002";
