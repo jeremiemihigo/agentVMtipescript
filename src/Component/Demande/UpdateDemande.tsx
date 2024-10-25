@@ -12,12 +12,14 @@ import {
 } from "@mui/material";
 import { Input, message } from "antd";
 import axios from "axios";
+import imageCompression from "browser-image-compression";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IInitiale } from "../../Interface/Demande";
 import { IDemande } from "../../Interface/IPaquet";
 import { IRaison, ISat } from "../../Interface/IStatic";
 import AutoComplement from "../../Static/AutoComplete";
+import Loading from "../../Static/Loading";
 import Logo from "../../Static/Logo";
 import { lien, raison, sat } from "../../Static/static";
 import TextArea from "../../Static/TextArea";
@@ -28,6 +30,23 @@ interface Localisation {
   longitude?: string;
   altitude?: string;
 }
+type TDonner = {
+  id: String;
+  data: {
+    statut: String;
+    raison: String | undefined;
+    codeclient: String;
+    sector: String;
+    cell: String;
+    reference: String;
+    feedback: String;
+    sat: String;
+    commune: String;
+    numero: String;
+    jours: Number;
+    file?: String;
+  };
+};
 
 function UpdateDemande() {
   const locations = useLocation();
@@ -44,7 +63,6 @@ function UpdateDemande() {
   const { cell, codeclient, commune, reference, sector, numero } = initial;
   const [value, setValue] = React.useState<string>("");
   const [generateLoc, setGenerateLoc] = React.useState(false);
-  const [file, setImage] = React.useState<any>();
   const [satSelect, setSatSelect] = React.useState<ISat | null>(null);
 
   const [raisonSelect, setRaisonSelect] = React.useState<IRaison | null>(null);
@@ -52,6 +70,7 @@ function UpdateDemande() {
   const [autre, setAutre] = React.useState(false);
 
   const [loadings, setLoadings] = React.useState(false);
+  const [load, setLoad] = React.useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -89,6 +108,26 @@ function UpdateDemande() {
     });
   };
   const navigate = useNavigate();
+  const [compressedFile, setCompressedFile] = React.useState<File | null>(null);
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setLoad(true);
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1024,
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(file, options);
+      setCompressedFile(compressedFile);
+      setLoad(false);
+    } catch (error) {
+      console.error("Erreur lors de la compression:", error);
+    }
+  };
   const sendData = async (e: any) => {
     try {
       setLoadings(true);
@@ -107,70 +146,58 @@ function UpdateDemande() {
       } else {
         let raison = autre ? raisonRwrite : raisonSelect?.raison;
         let days = initial?.jours ? initial?.jours : 0;
-
-        const datas = new FormData();
-        datas.append("file", file);
-        datas.append("codeAgent", "" + localStorage.getItem("codeAgent"));
-        datas.append("codeZone", "" + localStorage.getItem("codeZone"));
-        datas.append("codeclient", "" + initial?.codeclient);
-        datas.append("statut", "" + value);
-        datas.append("raison", "" + raison);
-        datas.append("sector", sector); //placeholder = Sector/constituency
-        datas.append("cell", cell); //placeholder = Cell/Ward
-        datas.append("reference", reference); //placeholder = Reference
-        datas.append("sat", satSelect?.nom_SAT);
-        datas.append("numero", numero);
-        datas.append("commune", commune);
-        datas.append("id", demande._id);
-        datas.append("jours", days);
-
-        const dataWithourFile = {
-          codeAgent: localStorage.getItem("codeAgent"),
-          codeZone: localStorage.getItem("codeZone"),
-          codeclient: initial?.codeclient,
-          statut: value,
-          raison,
-          sector,
-          cell,
-          reference,
-          sat: satSelect?.nom_SAT,
-          numero,
-          commune,
+        const dataImage = new FormData();
+        dataImage.append("image", compressedFile as Blob);
+        const donners: TDonner = {
+          data: {
+            statut: value,
+            raison,
+            codeclient,
+            sector,
+            cell,
+            reference,
+            feedback: "new",
+            sat: satSelect?.nom_SAT,
+            commune,
+            numero,
+            jours: days,
+          },
           id: demande._id,
-          jours: days,
         };
 
-        const linfile = file
-          ? `${lien}/updateDemandeFile`
-          : `${lien}/updateDemande`;
-        const donner = file ? datas : dataWithourFile;
-        const response = await axios.put(linfile, donner);
-
-        // socket.emit("sendData", data);
-
-        if (response.status === 200) {
-          setLocation({ longitude: "", latitude: "", altitude: "" });
-          const form: any = document.getElementById("formDemande");
-
-          const fileInput = form.querySelector('input[type="file"]');
-          fileInput.value = "";
-
-          setInitial({
-            codeclient: "",
-            cell: "",
-            commune: "",
-            reference: "",
-            sector: "",
-            numero: "",
-          });
-          setImage("");
-          setAutre(false);
-          setRaisonSelect(null);
-          setSatSelect(null);
-          setValue("");
-          window.location.replace("/paquet");
+        const linfile = `${lien}/updateDemande`;
+        if (compressedFile) {
+          const result = await axios.post(
+            "https://www.bboxxvm.com/ImagesVisite/upload.php",
+            dataImage,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          donners.data.file = result.data.filename;
+          const response = await axios.put(linfile, donners);
+          if (response.status === 200) {
+            setLocation({ longitude: "", latitude: "", altitude: "" });
+            const form: any = document.getElementById("formDemande");
+            const fileInput = form.querySelector('input[type="file"]');
+            fileInput.value = "";
+            window.location.replace("/paquet");
+          } else {
+            successAlert("" + response.data, "error");
+          }
         } else {
-          successAlert("" + response.data, "error");
+          const response = await axios.put(linfile, donners);
+          if (response.status === 200) {
+            setLocation({ longitude: "", latitude: "", altitude: "" });
+            const form: any = document.getElementById("formDemande");
+            const fileInput = form.querySelector('input[type="file"]');
+            fileInput.value = "";
+            window.location.replace("/paquet");
+          } else {
+            successAlert("" + response.data, "error");
+          }
         }
       }
       setLoadings(false);
@@ -290,14 +317,9 @@ function UpdateDemande() {
             {/* <UploadImage setFile={setFichier} /> */}
 
             <input
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const file = event.target.files?.[0]; // Use optional chaining in case files is null
-                if (file) {
-                  setImage(file); // Assuming setImage is your state setter function
-                }
-              }}
               type="file"
               accept=".png, .jpg, .jpeg"
+              onChange={handleFileUpload}
             />
           </div>
           <div style={{ marginBottom: "10px" }}>
@@ -441,6 +463,7 @@ function UpdateDemande() {
           <div></div>
         </form>
       </div>
+      {load && <Loading open={load} title="En cours de compression" />}
     </>
   );
 }

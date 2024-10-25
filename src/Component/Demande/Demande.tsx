@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { IInitiale } from "../../Interface/Demande";
 import { IRaison, ISat } from "../../Interface/IStatic";
 import AutoComplement from "../../Static/AutoComplete";
+import Loading from "../../Static/Loading";
 import Logo from "../../Static/Logo";
 import { config, lien, raison, sat } from "../../Static/static";
 import TextArea from "../../Static/TextArea";
@@ -84,9 +85,11 @@ function Demande() {
     });
   };
   const [compressedFile, setCompressedFile] = React.useState<File | null>(null);
+  const [load, setLoad] = React.useState(false);
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setLoad(true);
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -99,13 +102,14 @@ function Demande() {
     try {
       const compressedFile = await imageCompression(file, options);
       setCompressedFile(compressedFile);
-      console.log("Image compressée:", compressedFile);
+      setLoad(false);
     } catch (error) {
       console.error("Erreur lors de la compression:", error);
     }
   };
 
   const navigate = useNavigate();
+
   const sendData = async (e: any) => {
     try {
       setLoadings(true);
@@ -125,24 +129,37 @@ function Demande() {
         let raison = autre ? raisonRwrite : raisonSelect?.raison;
         let days = initial?.jours ? initial?.jours : 0;
 
-        const data = new FormData();
-        data.append("file", compressedFile as Blob);
-        data.append("longitude", "" + location?.longitude);
-        data.append("latitude", "" + location?.latitude);
-        data.append("altitude", "" + location?.altitude);
-        data.append("codeAgent", "" + localStorage.getItem("codeAgent"));
-        data.append("codeZone", "" + localStorage.getItem("codeZone"));
-        data.append("codeclient", initial?.codeclient);
-        data.append("statut", value);
-        data.append("raison", "" + raison);
-        data.append("sector", initial?.sector);
-        data.append("cell", initial?.cell);
-        data.append("reference", initial?.reference);
-        data.append("sat", satSelect?.nom_SAT);
-        data.append("numero", "" + initial?.numero);
-        data.append("commune", initial?.commune);
-        data.append("jours", "" + days);
-        const response = await axios.post(lien + "/demande", data, config);
+        const dataImage = new FormData();
+        dataImage.append("image", compressedFile as Blob);
+        const result = await axios.post(
+          "https://www.bboxxvm.com/ImagesVisite/upload.php",
+          dataImage,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        //data.append("file", compressedFile as Blob);
+        let donner = {
+          longitude: location?.longitude,
+          latitude: location?.latitude,
+          filename: result.data.filename,
+          altitude: location?.altitude,
+          codeAgent: localStorage.getItem("codeAgent"),
+          codeZone: localStorage.getItem("codeZone"),
+          codeclient: initial?.codeclient,
+          statut: value,
+          raison: raison,
+          sector: initial?.sector,
+          cell: initial?.cell,
+          reference: initial?.reference,
+          sat: satSelect?.nom_SAT,
+          numero: initial?.numero,
+          commune: initial?.commune,
+          jours: days,
+        };
+        const response = await axios.post(lien + "/demande", donner, config);
         if (response.status === 200) {
           setLocation({ longitude: "", latitude: "", altitude: "" });
           const form: any = document.getElementById("formDemande");
@@ -392,6 +409,7 @@ function Demande() {
           <div></div>
         </form>
       </div>
+      {load && <Loading open={load} title="En cours de compression" />}
     </>
   );
 }
