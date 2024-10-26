@@ -146,8 +146,7 @@ function UpdateDemande() {
       } else {
         let raison = autre ? raisonRwrite : raisonSelect?.raison;
         let days = initial?.jours ? initial?.jours : 0;
-        const dataImage = new FormData();
-        dataImage.append("image", compressedFile as Blob);
+
         const donners: TDonner = {
           data: {
             statut: value,
@@ -164,20 +163,22 @@ function UpdateDemande() {
           },
           id: demande._id,
         };
-
         const linfile = `${lien}/updateDemande`;
         if (compressedFile) {
-          const result = await axios.post(
-            "https://www.bboxxvm.com/ImagesVisite/upload.php",
-            dataImage,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-          donners.data.file = result.data.filename;
-          const response = await axios.put(linfile, donners);
+          const data = new FormData();
+          data.append("file", compressedFile as Blob);
+          data.append("statut", value);
+          data.append("raison", "" + raison);
+          data.append("codeclient", codeclient);
+          data.append("id", demande._id);
+          data.append("sector", sector);
+          data.append("cell", cell);
+          data.append("reference", reference);
+          data.append("sat", satSelect?.nom_SAT);
+          data.append("commune", commune);
+          data.append("numero", numero);
+          data.append("jours", days);
+          const response = await axios.put(lien + "/updateDemandeFile", data);
           if (response.status === 200) {
             setLocation({ longitude: "", latitude: "", altitude: "" });
             const form: any = document.getElementById("formDemande");
