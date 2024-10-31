@@ -9,7 +9,7 @@ import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 
 // const link = "https://bboxxother.onrender.com";
 //const link = "https://visite.bboxxvm.com";
-const link = "https://visitetwo.bboxxvm.com";
+ const link = "https://visitetwo.bboxxvm.com";
 //const link = "http://localhost:60000";
 //export const big_data = "https://issuelink.bboxxvm.com/bboxx/support";
 //export const big_data = "http://localhost:60000/bboxx/support";

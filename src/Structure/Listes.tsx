@@ -2,6 +2,7 @@
 // import {  lien_image } from './Static'
 import { IDemande } from "../Interface/IPaquet";
 import Attente from "./Attente";
+import Followup from "./Followup";
 import NonConforme from "./NonConforme";
 // import "./demandeListe.css";
 import Valide from "./Valide";
@@ -19,6 +20,7 @@ function Listes(props: Props) {
         {critere === "valide" && <Valide donner={donner} />}
         {critere === "attentes" && <Attente donner={donner} />}
         {critere === "nConformes" && <NonConforme donner={donner} />}
+        {critere === "followup" && <Followup donner={donner} />}
       </div>
     </div>
   );

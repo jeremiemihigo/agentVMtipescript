@@ -92,11 +92,12 @@ function Demande() {
     setLoad(true);
     const file = event.target.files?.[0];
     if (!file) return;
-
+    const taille = parseInt((file.size / 2097152).toFixed(0));
     const options = {
-      maxSizeMB: 1,
+      maxSizeMB: taille,
       maxWidthOrHeight: 1024,
       useWebWorker: true,
+      initialQuality: 0.8,
     };
 
     try {

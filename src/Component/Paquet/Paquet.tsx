@@ -181,9 +181,7 @@ function Paquet() {
                   item
                   xs={6}
                   className="nConforme"
-                  onClick={() =>
-                    data && choisirLot(data.followup, "nConformes")
-                  }
+                  onClick={() => data && choisirLot(data.followup, "followup")}
                 >
                   <Paper elevation={3} className="paper">
                     <Typography noWrap component="p" className="title">
