@@ -18,5 +18,6 @@ export interface IUser {
   telephone: string;
   active: boolean;
   region: IRegion;
+  first: boolean;
   shop: IShop[];
 }

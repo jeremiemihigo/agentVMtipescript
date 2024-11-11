@@ -5,6 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../Interface/IUser";
+import FirstLogin from "../Login/FirstLogin";
 
 function Header() {
   const userConnect: IUser = useSelector((state: any) => state.user?.user);
@@ -36,6 +37,7 @@ function Header() {
         margin: "0px",
       }}
     >
+      {userConnect?.first && <FirstLogin />}
       <Box>
         <div style={{ display: "flex", paddingTop: "10px" }}>
           <Typography
