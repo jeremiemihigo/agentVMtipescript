@@ -56,7 +56,7 @@ function Paquet() {
   return (
     <>
       <div style={{ padding: "15px" }}>
-        <Logo text="Paquet" />
+        <Logo text="Pack" />
         {!data ? (
           <LoaderGif width={400} height={400} />
         ) : (

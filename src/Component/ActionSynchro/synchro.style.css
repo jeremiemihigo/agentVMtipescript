@@ -1,14 +1,13 @@
 .synchro {
   background-color: #dedede;
   margin-bottom: 10px;
-  padding: 5px;
+  padding: 10px;
   border-radius: 5px;
 }
 .synchro_id {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  font-weight: bolder;
+  font-size: 12px;
 }
 .synchro_plainte > p {
   padding: 0;

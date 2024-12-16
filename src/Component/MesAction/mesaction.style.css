@@ -1,0 +1,16 @@
+.gridclasse {
+  padding: 5px;
+}
+.titleaction {
+  font-size: 10px;
+  text-align: center;
+}
+.papier {
+  padding: 10px;
+}
+.client {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 14px;
+  margin-top: 10px;
+}

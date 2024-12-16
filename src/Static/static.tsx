@@ -19,6 +19,8 @@ export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;
 export const lien_image = `${link}/bboxx/image`;
 export const lien_issue = `${link}/issue`;
+export const lien_dt = `${link}/dt`;
+export const lien_terrain = `${link}/bboxx/terrain`;
 
 export const dateFrancais = (donner: string) => {
   let dates = new Date(donner);

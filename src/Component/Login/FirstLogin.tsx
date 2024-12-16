@@ -8,6 +8,7 @@ import { Button, Flex, Input } from "antd";
 import axios from "axios";
 import * as React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { lien } from "../../Static/static";
 
 const Transition = React.forwardRef(function Transition(
@@ -20,15 +21,20 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export default function FirstLogin() {
-  const [open, setOpen] = React.useState(true);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   const userConnect = useSelector((state: any) => state.user?.user);
   const [password, setPassword] = React.useState({ first: "", second: "" });
   const [message, setMessage] = React.useState<string>("");
   const [sending, setSending] = React.useState<boolean>(false);
+
+  const navigation = useNavigate();
+  const deconnection = (e?: any) => {
+    e?.preventDefault();
+    localStorage.removeItem("auth");
+    localStorage.removeItem("nom");
+    localStorage.removeItem("codeAgent");
+    localStorage.removeItem("codeZone");
+    navigation("/", { replace: true });
+  };
 
   const sendData = async (e: any) => {
     e.preventDefault();
@@ -47,8 +53,7 @@ export default function FirstLogin() {
           });
           setSending(false);
           if (response.status === 200) {
-            setOpen(false);
-            handleClose();
+            deconnection();
           }
         }
       }
@@ -59,7 +64,7 @@ export default function FirstLogin() {
   return (
     <React.Fragment>
       <Dialog
-        open={open}
+        open={true}
         TransitionComponent={Transition}
         keepMounted
         aria-describedby=" Please Change the default password"
