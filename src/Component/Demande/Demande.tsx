@@ -110,12 +110,26 @@ function Demande() {
   };
 
   const navigate = useNavigate();
+  const [itemswap, setItemSwap] = React.useState<string[]>([]);
+  const onclickCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const valeur = event.target.value;
+    if (itemswap?.includes(valeur)) {
+      setItemSwap(itemswap.filter((x) => x !== valeur));
+    } else {
+      setItemSwap([...itemswap, valeur]);
+    }
+  };
 
   const sendData = async (e: any) => {
     try {
       setLoadings(true);
       e.preventDefault();
-      if (
+      if (raisonSelect?.id === 2 && itemswap.length === 0) {
+        successAlert(
+          "Veuillez sélectionner le(s) matériel(s) que le client souhaite échanger",
+          "error"
+        );
+      } else if (
         !initial?.reference ||
         satSelect === null ||
         !initial?.cell ||
@@ -129,7 +143,6 @@ function Demande() {
       } else {
         let raison = autre ? raisonRwrite : raisonSelect?.raison;
         let days = initial?.jours ? initial?.jours : 0;
-
         const data = new FormData();
         data.append("file", compressedFile as Blob);
         data.append("longitude", "" + location?.longitude);
@@ -140,6 +153,7 @@ function Demande() {
         data.append("codeclient", "" + initial?.codeclient);
         data.append("statut", value);
         data.append("raison", "" + raison);
+        data.append("itemswap", itemswap.length > 0 ? itemswap.join(";") : "");
         data.append("sector", initial?.sector);
         data.append("cell", initial?.cell);
         data.append("reference", initial?.reference);
@@ -152,7 +166,6 @@ function Demande() {
         if (response.status === 200) {
           setLocation({ longitude: "", latitude: "", altitude: "" });
           const form: any = document.getElementById("formDemande");
-
           const fileInput = form.querySelector('input[type="file"]');
           fileInput.value = "";
           setInitial({
@@ -189,6 +202,15 @@ function Demande() {
     setRaisonSelect({ id: 0, raison: "" });
     setAutre(!autre);
   };
+  const itemsSwap = [
+    "Telecommande",
+    "Panneau solaire",
+    "USB",
+    "Torche",
+    "C.U",
+    "Television",
+    "Radio",
+  ];
 
   return (
     <>
@@ -323,7 +345,47 @@ function Demande() {
               {autre ? "Choisir la selection du feedback" : "Autre feedback"}
             </p>
           </div>
-          {raisonSelect && raisonSelect?.id === 5 && (
+
+          {raisonSelect && raisonSelect?.id === 2 && (
+            <div style={{ marginTop: "10px" }}>
+              <p
+                style={{
+                  textAlign: "center",
+                  fontSize: "13px",
+                  marginBottom: "10px",
+                }}
+              >
+                sélectionner le(s) matériel(s) que le client souhaite échanger.
+              </p>
+              <div style={{ marginBottom: "10px" }}>
+                <Box>
+                  <Grid container>
+                    {itemsSwap.map((index) => {
+                      return (
+                        <Grid item xs={6} key={index}>
+                          <FormControl component="fieldset" variant="standard">
+                            <FormGroup>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    onChange={(e) => onclickCheckBox(e)}
+                                    name={index}
+                                    value={index}
+                                  />
+                                }
+                                label={index}
+                              />
+                            </FormGroup>
+                          </FormControl>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </Box>
+              </div>
+            </div>
+          )}
+          {raisonSelect && raisonSelect?.id === 6 && (
             <div style={{ marginTop: "10px" }}>
               <Input
                 value={initial.jours}

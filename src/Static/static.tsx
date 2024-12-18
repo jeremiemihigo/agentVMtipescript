@@ -7,8 +7,6 @@ import _ from "lodash";
 import React from "react";
 import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 
-// const link = "https://bboxxother.onrender.com";
-//const link = "https://visite.bboxxvm.com";
 const link = "https://visitetwo.bboxxvm.com";
 //const link = "http://localhost:60000";
 //export const big_data = "https://issuelink.bboxxvm.com/bboxx/support";
@@ -38,35 +36,35 @@ export const returnName = (nom: string) => {
 };
 export const raison: IRaison[] = [
   { id: 1, raison: "Le client n'a pas de probleme" },
-  { id: 100, raison: "En attente de swap de CU" },
+  { id: 2, raison: "En attente de swap" },
   {
-    id: 2,
+    id: 3,
     raison:
       "En attente de swap des autres items (torche, radio, TV, panneau,…)",
   },
-  { id: 3, raison: "zone insecurisée" },
-  { id: 4, raison: "absent à la maison" },
-  { id: 5, raison: "Promesse de payement" },
-  { id: 6, raison: "cas de déménagement" },
-  { id: 7, raison: "En cours de repossession" },
-  { id: 8, raison: "introuvable" },
-  { id: 9, raison: "cas de resistance" },
-  { id: 10, raison: "Resistance" },
-  { id: 11, raison: "Victime de vol" },
-  { id: 12, raison: "Victime d'inendie" },
-  { id: 13, raison: "reactivation non utilisée" },
-  { id: 14, raison: "Pretend avoir fini" },
-  { id: 15, raison: "Probleme technique" },
-  { id: 16, raison: "Client en voyage" },
-  { id: 17, raison: "Maison fermee" },
-  { id: 18, raison: "Probleme financier" },
-  { id: 19, raison: "Deja repossedee par notre agent" },
-  { id: 20, raison: "Malade" },
-  { id: 21, raison: "Demande la repossession" },
-  { id: 22, raison: "Le client a laissé les matériels à quelqu'un d'autre" },
-  { id: 23, raison: "Demenager sans signaler" },
-  { id: 24, raison: "Utilise une autre source d'énergie" },
-  { id: 25, raison: "Le client veut déménager" },
+  { id: 4, raison: "zone insecurisée" },
+  { id: 5, raison: "absent à la maison" },
+  { id: 6, raison: "Promesse de payement" },
+  { id: 7, raison: "cas de déménagement" },
+  { id: 8, raison: "En cours de repossession" },
+  { id: 9, raison: "introuvable" },
+  { id: 10, raison: "cas de resistance" },
+  { id: 11, raison: "Resistance" },
+  { id: 12, raison: "Victime de vol" },
+  { id: 13, raison: "Victime d'inendie" },
+  { id: 14, raison: "reactivation non utilisée" },
+  { id: 15, raison: "Pretend avoir fini" },
+  { id: 16, raison: "Probleme technique" },
+  { id: 17, raison: "Client en voyage" },
+  { id: 18, raison: "Maison fermee" },
+  { id: 19, raison: "Probleme financier" },
+  { id: 20, raison: "Deja repossedee par notre agent" },
+  { id: 21, raison: "Malade" },
+  { id: 22, raison: "Demande la repossession" },
+  { id: 23, raison: "Le client a laissé les matériels à quelqu'un d'autre" },
+  { id: 24, raison: "Demenager sans signaler" },
+  { id: 25, raison: "Utilise une autre source d'énergie" },
+  { id: 26, raison: "Le client veut déménager" },
 ];
 export const sat: ISat[] = [
   {
