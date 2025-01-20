@@ -31,6 +31,7 @@ function Paquet() {
   const loading = async () => {
     try {
       const response = await axios.get(`${big_data}/paquet`, config);
+
       if (response.status === 201) {
         localStorage.removeItem("auth");
         localStorage.removeItem("codeAgent");

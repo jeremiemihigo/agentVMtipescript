@@ -12,7 +12,7 @@ function LoaderGif({ width, height }: Props) {
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
-        width: "100%",
+        overflow: "hidden",
         marginTop: "30px",
       }}
     >
