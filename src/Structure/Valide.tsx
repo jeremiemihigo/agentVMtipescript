@@ -51,10 +51,7 @@ function Liste(props: Props) {
     <>
       {contextHolder}
       <div style={{ marginBottom: "10px" }}>
-        <Input
-          onChange={(e) => handleChange(e)}
-          placeholder="Recherchez un code client"
-        />
+        <Input onChange={(e) => handleChange(e)} placeholder="Search" />
       </div>
       <div className="listeReponses">
         {filterFn.fn(donner).map((index: IDemande, key: number) => {
