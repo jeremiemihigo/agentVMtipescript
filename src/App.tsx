@@ -7,6 +7,7 @@ import DemandeUpdate from "./Component/Demande/UpdateDemande";
 import Documentation from "./Component/Documentation";
 import Login from "./Component/Login/Login";
 import Mesactions from "./Component/MesAction";
+import ShowClient from "./Component/MesAction/Client";
 import Paquet from "./Component/Paquet";
 import Profil from "./Component/Profil";
 import Recherche from "./Component/Recherche";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/info" element={<DetailPlainte />} />
         <Route path="/update" element={<DemandeUpdate />} />
         <Route path="/mesactions" element={<Mesactions />} />
+        <Route path="/showclient" element={<ShowClient />} />
         <Route path="/" element={<Login />} />
         <Route path="*" element={<Login />} />
       </Routes>

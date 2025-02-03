@@ -1,0 +1,15 @@
+.client_papier {
+  margin-top: 10px;
+  padding: 10px;
+}
+.client_papier > .client_info {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.visites_expl {
+  font-size: 12px;
+}
+.visites_expl > span {
+  font-weight: 600;
+}

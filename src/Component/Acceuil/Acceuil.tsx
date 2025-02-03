@@ -3,6 +3,7 @@ import {
   Construction,
   Inventory,
   KeyboardVoice,
+  PendingActions,
   Search,
   Visibility,
 } from "@mui/icons-material";
@@ -64,13 +65,13 @@ export default function BasicTabs() {
       icon: <Search fontSize="small" />,
       badget: false,
     },
-    // {
-    //   id: 6,
-    //   title: "Mes actions",
-    //   link: "/mesactions",
-    //   icon: <PendingActions fontSize="small" />,
-    //   badget: false,
-    // },
+    {
+      id: 6,
+      title: "Mes actions",
+      link: "/mesactions",
+      icon: <PendingActions fontSize="small" />,
+      badget: false,
+    },
   ];
   const changePage = (link: string) => {
     navigation(link);
