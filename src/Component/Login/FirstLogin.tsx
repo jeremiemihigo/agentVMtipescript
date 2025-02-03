@@ -42,19 +42,15 @@ export default function FirstLogin() {
       if (password.first !== password.second) {
         setMessage("The password is not correct");
       } else {
-        if (password.first === "1234") {
-          setMessage("Default password to change");
-        } else {
-          setSending(true);
-          const response = await axios.post(lien + "/updatedefaultpwd", {
-            codeAgent: userConnect && userConnect.codeAgent,
-            ancien: "1234",
-            nouvelle: password.first,
-          });
-          setSending(false);
-          if (response.status === 200) {
-            deconnection();
-          }
+        setSending(true);
+        const response = await axios.post(lien + "/updatedefaultpwd", {
+          codeAgent: userConnect && userConnect.codeAgent,
+          ancien: userConnect.pass || "1234",
+          nouvelle: password.first,
+        });
+        setSending(false);
+        if (response.status === 200) {
+          deconnection();
         }
       }
     } catch (error) {
