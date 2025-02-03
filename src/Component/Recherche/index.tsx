@@ -37,13 +37,13 @@ function Recherche() {
         localStorage.removeItem("auth");
         window.location.replace("/");
       } else {
-        if (reponse.data.visites.length === 0) {
+        if (reponse.data.length === 0) {
           successAlert("No result found", "error");
           setLoading(false);
           setCles([]);
         } else {
-          setCles(Object.keys(_.groupBy(reponse.data.visites, "demande.lot")));
-          setData(reponse.data.visites);
+          setCles(Object.keys(_.groupBy(reponse.data, "demande.lot")));
+          setData(reponse.data);
           setLoading(false);
         }
       }
