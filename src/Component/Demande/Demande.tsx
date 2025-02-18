@@ -31,6 +31,7 @@ interface Localisation {
 }
 
 function Demande() {
+  const [typephoto, setTypePhoto] = React.useState<string>("C.U");
   const [initial, setInitial] = React.useState<IInitiale>({
     cell: "",
     codeclient: "",
@@ -156,6 +157,7 @@ function Demande() {
         data.append("itemswap", itemswap.length > 0 ? itemswap.join(";") : "");
         data.append("sector", initial?.sector);
         data.append("cell", initial?.cell);
+        data.append("typeImage", typephoto);
         data.append("reference", initial?.reference);
         data.append("sat", satSelect?.nom_SAT);
         data.append("numero", "" + initial?.numero);
@@ -177,6 +179,7 @@ function Demande() {
             numero: "",
           });
           setAutre(false);
+          setTypePhoto("C.U");
           setRaisonSelect(null);
           setSatSelect(null);
           setValue("");
@@ -270,7 +273,45 @@ function Demande() {
               propr="nom_SAT"
             />
           </div>
-
+          <div style={{ marginBottom: "10px" }}>
+            <p>Selectionnez le type d&apos;image capturée</p>
+            <Box sx={{ display: "flex" }}>
+              <FormControl
+                sx={{ m: 1 }}
+                component="fieldset"
+                variant="standard"
+              >
+                <FormGroup>
+                  <FormControlLabel
+                    onClick={() => setTypePhoto("Capture exterieure maison")}
+                    control={
+                      <Checkbox
+                        checked={typephoto === "Capture exterieure maison"}
+                        name="Capture"
+                      />
+                    }
+                    label="Capture exterieure maison"
+                  />
+                </FormGroup>
+              </FormControl>
+              <FormControl
+                component="fieldset"
+                sx={{ m: 1 }}
+                variant="standard"
+              >
+                <FormLabel component="legend"></FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    onClick={() => setTypePhoto("C.U")}
+                    control={
+                      <Checkbox checked={typephoto === "C.U"} name="C.U" />
+                    }
+                    label="C.U"
+                  />
+                </FormGroup>
+              </FormControl>
+            </Box>
+          </div>
           <div style={{ marginBottom: "10px" }}>
             {/* <UploadImage setFile={setFichier} /> */}
             <input
@@ -279,6 +320,7 @@ function Demande() {
               onChange={handleFileUpload}
             />
           </div>
+
           <div style={{ marginBottom: "10px" }}>
             <Box sx={{ display: "flex" }}>
               <FormControl

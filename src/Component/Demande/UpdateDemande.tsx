@@ -50,6 +50,7 @@ type TDonner = {
 
 function UpdateDemande() {
   const locations = useLocation();
+  const [typephoto, setTypePhoto] = React.useState<string>("C.U");
   const demande: IDemande = locations.state;
   const [initial, setInitial] = React.useState<IInitiale | any>({
     cell: "",
@@ -322,6 +323,44 @@ function UpdateDemande() {
               accept=".png, .jpg, .jpeg"
               onChange={handleFileUpload}
             />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <Box>
+              <FormControl
+                sx={{ m: 1 }}
+                component="fieldset"
+                variant="standard"
+              >
+                <FormGroup>
+                  <FormControlLabel
+                    onClick={() => setTypePhoto("Capture exterieure maison")}
+                    control={
+                      <Checkbox
+                        checked={typephoto === "Capture exterieure maison"}
+                        name="Capture"
+                      />
+                    }
+                    label="Capture exterieure maison"
+                  />
+                </FormGroup>
+              </FormControl>
+              <FormControl
+                component="fieldset"
+                sx={{ m: 1 }}
+                variant="standard"
+              >
+                <FormLabel component="legend"></FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    onClick={() => setTypePhoto("C.U")}
+                    control={
+                      <Checkbox checked={typephoto === "C.U"} name="C.U" />
+                    }
+                    label="C.U"
+                  />
+                </FormGroup>
+              </FormControl>
+            </Box>
           </div>
           <div style={{ marginBottom: "10px" }}>
             <Box sx={{ display: "flex" }}>
