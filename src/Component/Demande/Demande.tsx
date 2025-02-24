@@ -31,7 +31,7 @@ interface Localisation {
 }
 
 function Demande() {
-  const [typephoto, setTypePhoto] = React.useState<string>("C.U");
+  const [typephoto, setTypePhoto] = React.useState<string>("");
   const [initial, setInitial] = React.useState<IInitiale>({
     cell: "",
     codeclient: "",
@@ -134,6 +134,7 @@ function Demande() {
         !initial?.reference ||
         satSelect === null ||
         !initial?.cell ||
+        typephoto === "" ||
         (raisonSelect?.raison === "" && raisonRwrite === "") ||
         value === ""
       ) {
@@ -179,7 +180,7 @@ function Demande() {
             numero: "",
           });
           setAutre(false);
-          setTypePhoto("C.U");
+          setTypePhoto("");
           setRaisonSelect(null);
           setSatSelect(null);
           setValue("");
