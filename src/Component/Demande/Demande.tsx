@@ -22,6 +22,7 @@ import Loading from "../../Static/Loading";
 import Logo from "../../Static/Logo";
 import { config, lien, raison, sat } from "../../Static/static";
 import TextArea from "../../Static/TextArea";
+import "./demande.style.css";
 // import UploadImage from './Image'
 
 interface Localisation {
@@ -215,6 +216,8 @@ function Demande() {
     "Television",
     "Radio",
   ];
+  console.log(typeof compressedFile);
+  console.log(compressedFile?.name);
 
   return (
     <>
@@ -275,7 +278,9 @@ function Demande() {
             />
           </div>
           <div style={{ marginBottom: "10px" }}>
-            <p>Selectionnez le type d&apos;image capturée</p>
+            <p style={{ fontSize: "12px", fontWeight: "bolder" }}>
+              Selectionnez le type d&apos;image capturée
+            </p>
             <Box sx={{ display: "flex" }}>
               <FormControl
                 sx={{ m: 1 }}
@@ -291,7 +296,7 @@ function Demande() {
                         name="Capture"
                       />
                     }
-                    label="Capture exterieure maison"
+                    label="Exterieure maison"
                   />
                 </FormGroup>
               </FormControl>
@@ -313,13 +318,32 @@ function Demande() {
               </FormControl>
             </Box>
           </div>
+
           <div style={{ marginBottom: "10px" }}>
-            {/* <UploadImage setFile={setFichier} /> */}
             <input
-              type="file"
               accept=".png, .jpg, .jpeg"
-              onChange={handleFileUpload}
+              onChange={(e) => handleFileUpload(e)}
+              type="file"
+              id="actual-btn"
+              hidden
             />
+            {compressedFile?.name ? (
+              <label
+                className="label"
+                style={{
+                  color: "green",
+                  fontWeight: "bolder",
+                  textAlign: "center",
+                }}
+                htmlFor="actual-btn"
+              >
+                {compressedFile?.name}
+              </label>
+            ) : (
+              <label className="label" htmlFor="actual-btn">
+                Cliquez ici pour télécharger le fichier
+              </label>
+            )}
           </div>
 
           <div style={{ marginBottom: "10px" }}>
