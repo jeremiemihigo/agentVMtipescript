@@ -341,7 +341,7 @@ function Demande() {
               </label>
             ) : (
               <label className="label" htmlFor="actual-btn">
-                Cliquez ici pour télécharger le fichier
+                Cliquez ici pour télécharger la photo
               </label>
             )}
           </div>
