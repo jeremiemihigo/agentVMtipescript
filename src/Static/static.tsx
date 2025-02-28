@@ -7,9 +7,9 @@ import _ from "lodash";
 import React from "react";
 import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
 
-const link = "https://visitemenages.bboxxvm.com";
+const link = "https://callcentersupport.bboxxvm.com";
 //const link = "http://localhost:5000";
-export const big_data = "https://visitemenages.bboxxvm.com/bboxx/support";
+export const big_data = "https://callcentersupport.bboxxvm.com/bboxx/support";
 //export const big_data = "http://localhost:5000/bboxx/support";
 export const lien_dash = `${link}/bboxx/dashboard`;
 //export const big_data = "https://visitetwo.bboxxvm.com/bboxx/support";
