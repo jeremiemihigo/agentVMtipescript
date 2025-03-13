@@ -49,6 +49,7 @@ export interface IDemande {
   cell: string;
   codeAgent: string;
   codeZone: string;
+  feedbackrs?: string;
   double?: IDouble;
   codeclient?: string;
   commune: string;

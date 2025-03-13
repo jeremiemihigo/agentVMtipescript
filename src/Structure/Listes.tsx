@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // import {  lien_image } from './Static'
 import { IDemande } from "../Interface/IPaquet";
+import Approbation from "./Approbation";
 import Attente from "./Attente";
 import Followup from "./Followup";
 import NonConforme from "./NonConforme";
@@ -21,6 +22,7 @@ function Listes(props: Props) {
         {critere === "attentes" && <Attente donner={donner} />}
         {critere === "nConformes" && <NonConforme donner={donner} />}
         {critere === "followup" && <Followup donner={donner} />}
+        {critere === "approbation" && <Approbation donner={donner} />}
       </div>
     </div>
   );

@@ -111,15 +111,25 @@ function NonConforme(props: Props) {
                   </p>
                 )}
                 <div>
+                  {index.feedbackrs && (
+                    <div style={{ marginBottom: "10px" }}>
+                      <p
+                        style={{
+                          padding: "0px",
+                          margin: "0px",
+                          fontSize: "12px",
+                          color: "red",
+                          fontWeight: "bolder",
+                        }}
+                      >
+                        Message du RS : <span>{index.feedbackrs}</span>
+                      </p>
+                    </div>
+                  )}
                   {index.conversation.length > 0 &&
                     index.conversation.map((item) => {
                       return (
-                        <div
-                          key={item._id}
-                          className={
-                            item.sender === "agent" ? "agent" : "callcenter"
-                          }
-                        >
+                        <div key={item._id} className="callcenter">
                           <p className="messageText">{item.message}</p>
                           <p className="heure">
                             {moment(item.createdAt).fromNow()}

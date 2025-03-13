@@ -16,6 +16,7 @@ interface TDonner {
   nConforme: IDemande[];
   valide: IDemande[];
   followup: IDemande[];
+  rs: IDemande[];
   _id: string;
 }
 
@@ -204,6 +205,36 @@ function Paquet() {
                         style={{ fontSize: "9px", textAlign: "center" }}
                       >
                         We are waiting for the followup
+                      </Typography>
+                    )}
+                  </Paper>
+                </Grid>
+                <Grid
+                  item
+                  xs={6}
+                  className="nConforme"
+                  onClick={() => data && choisirLot(data.rs, "approbation")}
+                >
+                  <Paper elevation={3} className="paper">
+                    <Typography noWrap component="p" className="title">
+                      Approbation of RS
+                    </Typography>
+                    {data ? (
+                      <Typography component="p" className="content">
+                        {data.rs.length}
+                      </Typography>
+                    ) : (
+                      <Typography component="p" className="loading">
+                        Loading...
+                      </Typography>
+                    )}
+                    {data && data.rs.length > 0 && (
+                      <Typography
+                        component="p"
+                        noWrap
+                        style={{ fontSize: "9px", textAlign: "center" }}
+                      >
+                        We are waiting approbation of RS
                       </Typography>
                     )}
                   </Paper>
