@@ -7,7 +7,6 @@ import Logo from "../../Static/Logo";
 import { config, lien_dash } from "../../Static/static";
 import Header from "../Header";
 import "./mesaction.style.css";
-//import Composant from "./Composant";
 
 interface IMessage {
   concerne: string;
