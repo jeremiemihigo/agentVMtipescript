@@ -1,6 +1,7 @@
 export interface IRaison {
-  id: number;
-  raison: string;
+  idFeedback: string;
+  title: string;
+  plateforme: [string];
 }
 export interface ISat {
   idSat: string;

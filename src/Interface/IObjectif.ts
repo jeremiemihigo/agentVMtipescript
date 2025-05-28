@@ -9,13 +9,13 @@ export interface IAction {
   statut: String;
 }
 
-export interface IObjectif {
-  codeAgent: String;
-  codeclient: String;
-  customer_name: String;
-  month: String;
-  region: String;
-  shop: String;
-  visites: IViste[];
-  action?: IAction[];
-}
+// export interface IObjectif {
+//   codeAgent: String;
+//   codeclient: String;
+//   customer_name: String;
+//   month: String;
+//   region: String;
+//   shop: String;
+//   visites: IViste[];
+//   action?: IAction[];
+// }

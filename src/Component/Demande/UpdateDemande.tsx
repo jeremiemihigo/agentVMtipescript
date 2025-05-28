@@ -14,6 +14,7 @@ import { Input, message } from "antd";
 import axios from "axios";
 import imageCompression from "browser-image-compression";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IInitiale } from "../../Interface/Demande";
 import { IDemande } from "../../Interface/IPaquet";
@@ -21,7 +22,7 @@ import { IRaison, ISat } from "../../Interface/IStatic";
 import AutoComplement from "../../Static/AutoComplete";
 import Loading from "../../Static/Loading";
 import Logo from "../../Static/Logo";
-import { lien, raison, sat } from "../../Static/static";
+import { lien, sat } from "../../Static/static";
 import TextArea from "../../Static/TextArea";
 import Header from "../Header";
 
@@ -51,6 +52,9 @@ type TDonner = {
 function UpdateDemande() {
   const locations = useLocation();
   const [typephoto, setTypePhoto] = React.useState<string>("C.U");
+  const raisons: IRaison[] = useSelector(
+    (state: any) => state.feedback.feedback
+  );
   const demande: IDemande = locations.state;
   const [initial, setInitial] = React.useState<IInitiale | any>({
     cell: "",
@@ -137,7 +141,7 @@ function UpdateDemande() {
         !reference ||
         !satSelect ||
         !cell ||
-        (raisonSelect?.raison === "" && raisonRwrite === "") ||
+        (raisonSelect?.idFeedback === "" && raisonRwrite === "") ||
         value === ""
       ) {
         successAlert(
@@ -145,7 +149,7 @@ function UpdateDemande() {
           "error"
         );
       } else {
-        let raison = autre ? raisonRwrite : raisonSelect?.raison;
+        let raison = autre ? raisonRwrite : raisonSelect?.idFeedback;
         let days = initial?.jours ? initial?.jours : 0;
 
         const donners: TDonner = {
@@ -221,7 +225,7 @@ function UpdateDemande() {
   };
 
   React.useEffect(() => {
-    if (demande.codeAgent) {
+    if (demande?.codeAgent && raisons) {
       setInitial({
         cell: demande.cell,
         commune: demande.commune,
@@ -240,11 +244,9 @@ function UpdateDemande() {
       });
       // donnerStat.filter(x=>x.value === demande.statut)
       setValue(demande.statut);
-      let raisons: IRaison[] = raison.filter(
-        (x) => x.raison === demande.raison
-      );
-      if (raisons.length > 0) {
-        setRaisonSelect(raisons[0]);
+      let feed = raisons.filter((x) => x.idFeedback === demande.raison);
+      if (feed.length > 0) {
+        setRaisonSelect(feed[0]);
       } else {
         setRaisonRwrite(demande.raison);
         setAutre(true);
@@ -252,7 +254,7 @@ function UpdateDemande() {
     } else {
       navigate("/paquet", { state: undefined });
     }
-  }, [demande]);
+  }, [demande, raisons]);
 
   return (
     <>
@@ -408,9 +410,9 @@ function UpdateDemande() {
               <AutoComplement
                 value={raisonSelect}
                 setValue={setRaisonSelect}
-                options={raison}
+                options={raisons}
                 title="Selectionnez le feedback *"
-                propr="raison"
+                propr="title"
               />
             )}
 
@@ -428,7 +430,7 @@ function UpdateDemande() {
               {autre ? "Choisir la selection du feedback" : "Autre feedback"}
             </p>
           </div>
-          {raisonSelect && raisonSelect?.id === 5 && (
+          {raisonSelect && raisonSelect?.idFeedback === "6" && (
             <div style={{ marginTop: "10px" }}>
               <Input
                 value={initial.jours}

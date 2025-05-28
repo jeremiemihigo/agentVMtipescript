@@ -14,13 +14,14 @@ import { Input, message } from "antd";
 import axios from "axios";
 import imageCompression from "browser-image-compression";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IInitiale } from "../../Interface/Demande";
 import { IRaison, ISat } from "../../Interface/IStatic";
 import AutoComplement from "../../Static/AutoComplete";
 import Loading from "../../Static/Loading";
 import Logo from "../../Static/Logo";
-import { config, lien, raison, sat } from "../../Static/static";
+import { config, lien, sat } from "../../Static/static";
 import TextArea from "../../Static/TextArea";
 import "./demande.style.css";
 // import UploadImage from './Image'
@@ -33,6 +34,9 @@ interface Localisation {
 
 function Demande() {
   const [typephoto, setTypePhoto] = React.useState<string>("");
+  const raison: IRaison[] = useSelector(
+    (state: any) => state.feedback.feedback
+  );
   const [initial, setInitial] = React.useState<IInitiale>({
     cell: "",
     codeclient: "",
@@ -126,7 +130,7 @@ function Demande() {
     try {
       setLoadings(true);
       e.preventDefault();
-      if (raisonSelect?.id === 2 && itemswap.length === 0) {
+      if (raisonSelect?.idFeedback === "2" && itemswap.length === 0) {
         successAlert(
           "Veuillez sélectionner le(s) matériel(s) que le client souhaite échanger",
           "error"
@@ -136,7 +140,7 @@ function Demande() {
         satSelect === null ||
         !initial?.cell ||
         typephoto === "" ||
-        (raisonSelect?.raison === "" && raisonRwrite === "") ||
+        (raisonSelect === null && raisonRwrite === "") ||
         value === ""
       ) {
         successAlert(
@@ -144,7 +148,7 @@ function Demande() {
           "error"
         );
       } else {
-        let raison = autre ? raisonRwrite : raisonSelect?.raison;
+        let raison = autre ? raisonRwrite : raisonSelect?.idFeedback;
         let days = initial?.jours ? initial?.jours : 0;
         const data = new FormData();
         data.append("file", compressedFile as Blob);
@@ -204,7 +208,7 @@ function Demande() {
 
   const changeRaison = () => {
     setRaisonRwrite("");
-    setRaisonSelect({ id: 0, raison: "" });
+    setRaisonSelect(null);
     setAutre(!autre);
   };
   const itemsSwap = [
@@ -216,8 +220,6 @@ function Demande() {
     "Television",
     "Radio",
   ];
-  console.log(typeof compressedFile);
-  console.log(compressedFile?.name);
 
   return (
     <>
@@ -382,7 +384,7 @@ function Demande() {
             </Box>
           </div>
           <div style={{ marginBottom: "10px" }}>
-            {autre ? (
+            {raisonSelect && raisonSelect?.title === "AUTRES" ? (
               <TextArea
                 setValue={setRaisonRwrite}
                 value={raisonRwrite}
@@ -394,7 +396,7 @@ function Demande() {
                 setValue={setRaisonSelect}
                 options={raison}
                 title="Selectionnez le feedback *"
-                propr="raison"
+                propr="title"
               />
             )}
 
@@ -413,7 +415,7 @@ function Demande() {
             </p>
           </div>
 
-          {raisonSelect && raisonSelect?.id === 2 && (
+          {raisonSelect && raisonSelect?.idFeedback === "2" && (
             <div style={{ marginTop: "10px" }}>
               <p
                 style={{
@@ -452,7 +454,7 @@ function Demande() {
               </div>
             </div>
           )}
-          {raisonSelect && raisonSelect?.id === 6 && (
+          {raisonSelect && raisonSelect?.idFeedback === "6" && (
             <div style={{ marginTop: "10px" }}>
               <Input
                 value={initial.jours}

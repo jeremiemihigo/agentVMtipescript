@@ -1,16 +1,17 @@
-.gridclasse {
-  padding: 5px;
-}
-.titleaction {
-  font-size: 10px;
-  text-align: center;
-}
 .papier {
   padding: 10px;
+  margin: 10px;
 }
-.client {
-  text-align: center;
-  font-weight: bolder;
-  font-size: 14px;
-  margin-top: 10px;
+.papier > p {
+  padding: 0;
+  margin: 0;
+}
+.papier .moment {
+  text-align: right;
+  font-size: 11px;
+  margin-top: 20px;
+}
+.papier .messages {
+  font-size: 13px;
+  text-align: justify;
 }

@@ -5,8 +5,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { IDeedline, IDelai, IRaison, ISat } from "../Interface/IStatic";
-
+import { IDeedline, IDelai, ISat } from "../Interface/IStatic";
 const link = "https://visitemenagesbackend.bboxxvm.com";
 //const link = "http://localhost:5000";
 export const big_data =
@@ -36,7 +35,7 @@ export const returnName = (nom: string) => {
   const split = nom.split(" ");
   return nom.split(" ")[split.length - 1];
 };
-export const raison: IRaison[] = [
+export const raison = [
   { id: 1, raison: "Le client n'a pas de probleme" },
   { id: 2, raison: "En attente de swap" },
   {

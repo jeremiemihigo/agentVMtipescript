@@ -1,11 +1,11 @@
 import { Logout } from "@mui/icons-material";
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../Interface/IUser";
 import FirstLogin from "../Login/FirstLogin";
+import "./header.css";
 
 function Header() {
   const userConnect: IUser = useSelector((state: any) => state.user?.user);
@@ -29,62 +29,67 @@ function Header() {
   }, [user]);
 
   return (
-    <div
-      style={{
-        color: "#fff",
-        backgroundColor: "rgb(0, 169, 224)",
-        padding: "4px",
-        margin: "0px",
-      }}
-    >
-      {userConnect?.first && <FirstLogin />}
-      <Box>
-        <div style={{ display: "flex", paddingTop: "10px" }}>
-          <Typography
-            component="p"
-            noWrap
-            sx={{
-              width: "60%",
-              textAlign: "center",
-              fontSize: "14px",
-              fontWeight: "bolder",
-            }}
-          >
-            {localStorage.getItem("nom")}
-          </Typography>
-          <Typography
-            component="p"
-            sx={{ width: "20%", fontSize: "14px", fontWeight: "bolder" }}
-          >
-            {localStorage.getItem("codeAgent")}
-          </Typography>
-          <Typography
-            component="p"
-            onClick={(e) => deconnection(e)}
-            noWrap
-            sx={{ width: "20%", textAlign: "right", cursor: "pointer" }}
-          >
-            {" "}
-            <Logout />
-          </Typography>
-        </div>
-      </Box>
-      {userConnect && (
-        <Box sx={{ margin: "0px", padding: "0px" }}>
-          <Typography sx={{ textAlign: "center", fontSize: "13px" }}>
-            Region : {userConnect?.region?.denomination}{" "}
-            {["PO", "ZBM"].includes(userConnect?.fonction)
-              ? ""
-              : `Shop : ${
-                  userConnect?.shop.length === 1 && userConnect?.shop[0].shop
-                }`}
-          </Typography>
-          <Typography sx={{ textAlign: "center", fontSize: "12px" }}>
-            contact : {userConnect?.telephone} / {userConnect?.fonction}
-          </Typography>
+    <>
+      <div
+        style={{
+          color: "#fff",
+          backgroundColor: "rgb(0, 169, 224)",
+          padding: "4px",
+          margin: "0px",
+        }}
+      >
+        {/* <Grid className="images" component={Link} to="/image">
+          <img src="/profile.png" alt="profile" />
+        </Grid> */}
+        <Box>
+          <div style={{ display: "flex", paddingTop: "10px" }}>
+            <Typography
+              component="p"
+              noWrap
+              sx={{
+                width: "60%",
+                textAlign: "center",
+                fontSize: "14px",
+                fontWeight: "bolder",
+              }}
+            >
+              {localStorage.getItem("nom")}
+            </Typography>
+            <Typography
+              component="p"
+              sx={{ width: "20%", fontSize: "14px", fontWeight: "bolder" }}
+            >
+              {localStorage.getItem("codeAgent")}
+            </Typography>
+            <Typography
+              component="p"
+              onClick={(e) => deconnection(e)}
+              noWrap
+              sx={{ width: "20%", textAlign: "right", cursor: "pointer" }}
+            >
+              {" "}
+              <Logout />
+            </Typography>
+          </div>
         </Box>
-      )}
-    </div>
+        {userConnect && (
+          <Box sx={{ margin: "0px", padding: "0px" }}>
+            <Typography sx={{ textAlign: "center", fontSize: "13px" }}>
+              Region : {userConnect?.region?.denomination}{" "}
+              {["PO", "ZBM"].includes(userConnect?.fonction)
+                ? ""
+                : `Shop : ${
+                    userConnect?.shop.length === 1 && userConnect?.shop[0].shop
+                  }`}
+            </Typography>
+            <Typography sx={{ textAlign: "center", fontSize: "12px" }}>
+              contact : {userConnect?.telephone} / {userConnect?.fonction}
+            </Typography>
+          </Box>
+        )}
+      </div>
+      {userConnect?.first && <FirstLogin />}
+    </>
   );
 }
 

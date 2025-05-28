@@ -5,11 +5,11 @@ import { combineReducers } from "redux";
 
 import action from "../../Redux/actions";
 import communiquer from "../../Redux/Documentation";
-import servey from "../../Redux/servey";
+import feedback from "../../Redux/feedback";
 import user from "../../Redux/user";
 
 // ==============================|| COMBINE REDUCERS ||============================== //
 
-const reducers = combineReducers({ user, communiquer, action, servey });
+const reducers = combineReducers({ user, feedback, communiquer, action });
 
 export default reducers;

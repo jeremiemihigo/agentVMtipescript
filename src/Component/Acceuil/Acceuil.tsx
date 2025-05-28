@@ -3,7 +3,6 @@ import {
   Construction,
   Inventory,
   KeyboardVoice,
-  PendingActions,
   Search,
   Visibility,
 } from "@mui/icons-material";
@@ -14,7 +13,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ICommuniquer } from "../../Interface/ICommuniquer";
-import { IServey } from "../../Interface/IServey";
 
 interface IOptions {
   id: number;
@@ -26,7 +24,6 @@ interface IOptions {
 
 export default function BasicTabs() {
   const userConnect = useSelector((state: any) => state.user?.user);
-  const servey: IServey[] = useSelector((state: any) => state.servey.servey);
 
   const navigation = useNavigate();
   const title: IOptions[] = [
@@ -44,13 +41,7 @@ export default function BasicTabs() {
       icon: <Visibility fontSize="small" />,
       badget: false,
     },
-    {
-      id: 3,
-      title: "Messages",
-      link: "/documentation",
-      icon: <KeyboardVoice fontSize="small" />,
-      badget: true,
-    },
+
     {
       id: 4,
       title: "Changing password",
@@ -67,9 +58,9 @@ export default function BasicTabs() {
     },
     {
       id: 6,
-      title: "Mes actions",
+      title: "Communication",
       link: "/mesactions",
-      icon: <PendingActions fontSize="small" />,
+      icon: <KeyboardVoice fontSize="small" />,
       badget: false,
     },
   ];
@@ -139,35 +130,7 @@ export default function BasicTabs() {
               </Grid>
             );
           })}
-          {servey && servey.length > 0 && (
-            <Grid
-              onClick={() => changePage("/servey")}
-              item
-              lg={6}
-              sm={6}
-              xs={6}
-              sx={{ backgroundColor: "red" }}
-            >
-              <Paper sx={style.paper} elevation={3}>
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    <p>Servey</p>
-                  </div>
 
-                  <Typography sx={{ fontSize: "12px" }} component="p" noWrap>
-                    Very important
-                  </Typography>
-                </div>
-              </Paper>
-            </Grid>
-          )}
           {userConnect?.fonction === "tech" && (
             <Grid
               onClick={() => changePage("/action")}
