@@ -14,6 +14,7 @@ export interface IUser {
   codeAgent: string;
   codeZone: string;
   fonction: string;
+  filename: string;
   idShop: string;
   telephone: string;
   active: boolean;

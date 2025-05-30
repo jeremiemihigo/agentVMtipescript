@@ -35,6 +35,7 @@ function Logo(props: Props) {
               fontWeight: "bolder",
               margin: "0px",
               fontSize: "12px",
+              marginRight: "15px",
             }}
           >
             Dashboard
