@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import type { GetProp, UploadFile, UploadProps } from "antd";
-import { Upload } from "antd";
+import { message, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import axios from "axios";
 import React, { useState } from "react";
@@ -33,19 +33,30 @@ const Images: React.FC = () => {
     const imgWindow = window.open(src);
     imgWindow?.document.write(image.outerHTML);
   };
-
+  const [messageApi, contextHolder] = message.useMessage();
+  const successAlert = (texte: string, type: any) => {
+    messageApi.open({
+      type,
+      content: "" + texte,
+      duration: 5,
+    });
+  };
   const sendData = async () => {
     try {
-      const response = await axios.put(
-        `${lien}/updateFileAgent`,
-        {
-          id: user._id,
-          filename: fileList[0].thumbUrl,
-        },
-        config
-      );
-      if (response.status === 200) {
-        window.location.replace("/image");
+      if (fileList.length > 0) {
+        const response = await axios.put(
+          `${lien}/updateFileAgent`,
+          {
+            id: user._id,
+            filename: fileList[0].thumbUrl,
+          },
+          config
+        );
+        if (response.status === 200) {
+          window.location.replace("/image");
+        }
+      } else {
+        successAlert("Importer la photo en cliquant sur upload", "error");
       }
     } catch (error) {
       console.log(error);
@@ -54,6 +65,7 @@ const Images: React.FC = () => {
 
   return (
     <>
+      {contextHolder}
       <Header />
       <Logo text="Photo de profil" />
       <div
