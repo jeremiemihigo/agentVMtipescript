@@ -51,7 +51,6 @@ function Demande() {
 
   const [raisonSelect, setRaisonSelect] = React.useState<IRaison | null>(null);
   const [raisonRwrite, setRaisonRwrite] = React.useState("");
-  const [autre, setAutre] = React.useState(false);
 
   const [loadings, setLoadings] = React.useState(false);
 
@@ -140,7 +139,8 @@ function Demande() {
         satSelect === null ||
         !initial?.cell ||
         typephoto === "" ||
-        (raisonSelect === null && raisonRwrite === "") ||
+        !raisonSelect ||
+        (raisonSelect?.idFeedback === "autre" && raisonRwrite === "") ||
         value === ""
       ) {
         successAlert(
@@ -148,7 +148,10 @@ function Demande() {
           "error"
         );
       } else {
-        let raison = autre ? raisonRwrite : raisonSelect?.idFeedback;
+        let raison =
+          raisonSelect?.idFeedback === "autre"
+            ? raisonRwrite
+            : raisonSelect?.idFeedback;
         let days = initial?.jours ? initial?.jours : 0;
         const data = new FormData();
         data.append("file", compressedFile as Blob);
@@ -184,7 +187,6 @@ function Demande() {
             sector: "",
             numero: "",
           });
-          setAutre(false);
           setTypePhoto("");
           setRaisonSelect(null);
           setSatSelect(null);
@@ -206,11 +208,6 @@ function Demande() {
     }
   };
 
-  const changeRaison = () => {
-    setRaisonRwrite("");
-    setRaisonSelect(null);
-    setAutre(!autre);
-  };
   const itemsSwap = [
     "Telecommande",
     "Panneau solaire",
@@ -384,13 +381,7 @@ function Demande() {
             </Box>
           </div>
           <div style={{ marginBottom: "10px" }}>
-            {raisonSelect && raisonSelect?.title === "AUTRES" ? (
-              <TextArea
-                setValue={setRaisonRwrite}
-                value={raisonRwrite}
-                placeholder="Autres *"
-              />
-            ) : (
+            <div style={{ marginBottom: "10px" }}>
               <AutoComplement
                 value={raisonSelect}
                 setValue={setRaisonSelect}
@@ -398,21 +389,16 @@ function Demande() {
                 title="Selectionnez le feedback *"
                 propr="title"
               />
-            )}
-
-            <p
-              onClick={() => changeRaison()}
-              style={{
-                fontSize: "12px",
-                textAlign: "right",
-                cursor: "pointer",
-                color: "blue",
-                fontWeight: "bolder",
-                margin: "5px",
-              }}
-            >
-              {autre ? "Choisir la selection du feedback" : "Autre feedback"}
-            </p>
+            </div>
+            <div style={{ marginBottom: "10px" }}>
+              {raisonSelect && raisonSelect?.idFeedback === "autre" && (
+                <TextArea
+                  setValue={setRaisonRwrite}
+                  value={raisonRwrite}
+                  placeholder="Autres *"
+                />
+              )}
+            </div>
           </div>
 
           {raisonSelect && raisonSelect?.idFeedback === "2" && (
