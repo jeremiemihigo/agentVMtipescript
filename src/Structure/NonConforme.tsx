@@ -110,6 +110,13 @@ function NonConforme(props: Props) {
                     peux verifier dans tes visites conformes
                   </p>
                 )}
+                {index.feedback === "doublon" && (
+                  <p className="callcenter">
+                    Cette visite a déjà été effectuée. Vous pouvez le vérifier
+                    dans {`<< All customer visit >>`}
+                  </p>
+                )}
+
                 <div>
                   {index.feedbackrs && (
                     <div style={{ marginBottom: "10px" }}>
