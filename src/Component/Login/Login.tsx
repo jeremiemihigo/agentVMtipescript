@@ -1,4 +1,12 @@
-import { Button, CircularProgress, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  FormGroup,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { Input } from "antd";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -17,6 +25,7 @@ function Login() {
     username: "",
     password: "",
   });
+  const [showpass, setShowPass] = React.useState<boolean>(false);
   const navigation = useNavigate();
   const [sending, setSending] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -83,11 +92,22 @@ function Login() {
               <div className="login__field">
                 <Input
                   onChange={(e) => handleChange(e)}
-                  type="password"
+                  type={showpass ? "text" : "password"}
                   placeholder="Password"
                   name="password"
                 />
               </div>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={showpass}
+                      onChange={() => setShowPass(!showpass)}
+                    />
+                  }
+                  label="Show password"
+                />
+              </FormGroup>
               <Button
                 variant="contained"
                 fullWidth
