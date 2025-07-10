@@ -6,4 +6,5 @@ export interface IInitiale {
   reference: string;
   jours?: number;
   numero?: string;
+  commentaire?: string;
 }

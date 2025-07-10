@@ -42,6 +42,7 @@ function Demande() {
     codeclient: "",
     commune: "",
     reference: "",
+    commentaire: "",
     sector: "",
     numero: "",
   });
@@ -171,6 +172,7 @@ function Demande() {
         data.append("sat", satSelect?.nom_SAT);
         data.append("numero", "" + initial?.numero);
         data.append("commune", initial?.commune);
+        data.append("commentaire", "" + initial.commentaire);
         data.append("jours", "" + days);
 
         const response = await axios.post(lien + "/demande", data, config);
@@ -390,6 +392,16 @@ function Demande() {
                 propr="title"
               />
             </div>
+            {raisonSelect && raisonSelect?.idFeedback !== "autre" && (
+              <div style={{ marginBottom: "10px" }}>
+                <Input
+                  name="commentaire"
+                  value={initial.commentaire}
+                  onChange={(e) => handleChange(e)}
+                  placeholder="Commentaire du feedback (facultatif)"
+                />
+              </div>
+            )}
             <div style={{ marginBottom: "10px" }}>
               {raisonSelect && raisonSelect?.idFeedback === "autre" && (
                 <TextArea
