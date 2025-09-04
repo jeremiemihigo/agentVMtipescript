@@ -20,5 +20,6 @@ export interface IUser {
   active: boolean;
   region: IRegion;
   first: boolean;
+  account_manager: boolean;
   shop: IShop[];
 }

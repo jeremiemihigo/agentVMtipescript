@@ -56,7 +56,11 @@ const AutoComplement: React.FC<AutoComplementProps> = ({
         return option["" + propr];
       }}
       renderOption={(props, option) => {
-        return <li {...props}>{option["" + propr]}</li>;
+        return (
+          <li {...props} key={option._id}>
+            {option["" + propr]}
+          </li>
+        );
       }}
       sx={{ width: "100%" }}
       freeSolo

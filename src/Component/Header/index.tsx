@@ -98,12 +98,21 @@ function Header() {
               Region : {userConnect?.region?.denomination}{" "}
               {["PO", "ZBM"].includes(userConnect?.fonction)
                 ? ""
-                : `Shop : ${
-                    userConnect?.shop.length === 1 && userConnect?.shop[0].shop
+                : `${
+                    userConnect?.shop.length === 1 &&
+                    "/ " + userConnect?.shop[0].shop
                   }`}
             </Typography>
             <Typography sx={{ textAlign: "center", fontSize: "12px" }}>
-              contact : {userConnect?.telephone} / {userConnect?.fonction}
+              contact : {userConnect?.telephone}
+            </Typography>
+            <Typography
+              sx={{ textAlign: "center", marginTop: "10px", fontSize: "12px" }}
+            >
+              Type de compte :{" "}
+              {userConnect?.account_manager
+                ? "ACCOUNT MANAGER"
+                : userConnect.fonction.toUpperCase()}
             </Typography>
           </Box>
         )}

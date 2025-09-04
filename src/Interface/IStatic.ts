@@ -8,7 +8,7 @@ export interface ISat {
   nom_SAT: string;
   shop: string;
   region: string;
-  id: string;
+  _id: string;
 }
 
 export interface IDelai {

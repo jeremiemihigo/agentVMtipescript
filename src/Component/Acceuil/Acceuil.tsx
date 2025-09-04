@@ -6,13 +6,13 @@ import {
   Search,
   Visibility,
 } from "@mui/icons-material";
-
 import { Badge, Grid, Paper, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ICommuniquer } from "../../Interface/ICommuniquer";
+import { IUser } from "../../Interface/IUser";
 
 interface IOptions {
   id: number;
@@ -23,7 +23,7 @@ interface IOptions {
 }
 
 export default function BasicTabs() {
-  const userConnect = useSelector((state: any) => state.user?.user);
+  const userConnect: IUser = useSelector((state: any) => state.user?.user);
 
   const navigation = useNavigate();
   const title: IOptions[] = [
@@ -158,6 +158,33 @@ export default function BasicTabs() {
               </Paper>
             </Grid>
           )}
+          {/* {userConnect?.account_manager && (
+            <Grid
+              onClick={() => changePage("/account_manager")}
+              item
+              lg={6}
+              sm={6}
+              xs={6}
+            >
+              <Paper sx={style.paper} elevation={3}>
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <AccountBalance fontSize="small" />
+                  </div>
+                  <Typography sx={{ fontSize: "12px" }} component="p" noWrap>
+                    ACCOUNT MANAGER
+                  </Typography>
+                </div>
+              </Paper>
+            </Grid>
+          )} */}
         </Grid>
       </Box>
     </Box>
