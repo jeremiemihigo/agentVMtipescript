@@ -7,4 +7,5 @@ export interface ICustomerManager {
   actif: boolean;
   dateuploaded: number;
   datefinished: number;
+  visites?: [];
 }

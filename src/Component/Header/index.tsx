@@ -1,9 +1,8 @@
 import { Logout } from "@mui/icons-material";
-import { Box, Grid, Typography } from "@mui/material";
-import { Image } from "antd";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IUser } from "../../Interface/IUser";
 import FirstLogin from "../Login/FirstLogin";
 import "./header.css";
@@ -39,28 +38,6 @@ function Header() {
           margin: "0px",
         }}
       >
-        <Grid className="images" component={Link} to="/image">
-          <Image
-            width={100}
-            style={{ borderRadius: "50%" }}
-            src={
-              userConnect && userConnect.filename
-                ? userConnect.filename
-                : "/profile.png"
-            }
-            placeholder={
-              <Image
-                preview={false}
-                src={
-                  userConnect && userConnect.filename
-                    ? userConnect.filename
-                    : "/profile.png"
-                }
-                width={100}
-              />
-            }
-          />
-        </Grid>
         <Box>
           <div style={{ display: "flex", paddingTop: "10px" }}>
             <Typography

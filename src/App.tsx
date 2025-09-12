@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Acceuil from "./Component/Acceuil";
 import AccountManager from "./Component/AccountManager";
+import DashboardIndex from "./Component/AccountManager/Dashboard";
 import ActionSynchro from "./Component/ActionSynchro";
 import DetailPlainte from "./Component/ActionSynchro/DetailSynchro";
 import Demande from "./Component/Demande";
 import DemandeUpdate from "./Component/Demande/UpdateDemande";
 import Documentation from "./Component/Documentation";
-import Images from "./Component/Image";
 import Login from "./Component/Login/Login";
 import Mesactions from "./Component/MesAction";
 import Paquet from "./Component/Paquet";
@@ -27,8 +27,8 @@ function App() {
         <Route path="/info" element={<DetailPlainte />} />
         <Route path="/update" element={<DemandeUpdate />} />
         <Route path="/mesactions" element={<Mesactions />} />
-        <Route path="/image" element={<Images />} />
-        <Route path="/account_manager" element={<AccountManager />} />
+        <Route path="/account_manager" element={<DashboardIndex />} />
+        <Route path="/account_client" element={<AccountManager />} />
         <Route path="/" element={<Login />} />
         <Route path="*" element={<Login />} />
       </Routes>

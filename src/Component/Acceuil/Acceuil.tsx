@@ -1,4 +1,5 @@
 import {
+  AccountBalance,
   AccountBox,
   Construction,
   Inventory,
@@ -158,7 +159,7 @@ export default function BasicTabs() {
               </Paper>
             </Grid>
           )}
-          {/* {userConnect?.account_manager && (
+          {userConnect?.account_manager && (
             <Grid
               onClick={() => changePage("/account_manager")}
               item
@@ -184,7 +185,7 @@ export default function BasicTabs() {
                 </div>
               </Paper>
             </Grid>
-          )} */}
+          )}
         </Grid>
       </Box>
     </Box>

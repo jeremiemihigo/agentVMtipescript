@@ -1,7 +1,6 @@
-import axios from "axios";
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Logo from "../../Static/Logo";
-import { account_manager, config } from "../../Static/static";
 import Header from "../Header";
 
 interface ICustomerManager {
@@ -17,40 +16,15 @@ interface ICustomerManager {
 }
 
 function AccountManager() {
-  const [clients, setClients] = React.useState<ICustomerManager[]>([]);
+  const params = useLocation();
+  const { clients } = params.state;
   const [filteredClients, setFilteredClients] = React.useState<
     ICustomerManager[]
   >([]);
-  const [loading, setLoading] = React.useState(true);
   const [searchTerm, setSearchTerm] = React.useState("");
 
-  const loadingClient = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `${account_manager}/readCustomer`,
-        config
-      );
-      if (response.status === 200) {
-        setClients(response.data);
-        setFilteredClients(response.data);
-      }
-    } catch (error) {
-      console.error("Erreur lors du chargement des clients:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   React.useEffect(() => {
-    const initialize = async () => {
-      await loadingClient();
-    };
-    initialize();
-  }, []);
-
-  React.useEffect(() => {
-    const filtered = clients.filter((client) => {
+    const filtered = clients.filter((client: ICustomerManager) => {
       const searchLower = searchTerm.toLowerCase();
       return (
         client.unique_account_id.toLowerCase().includes(searchLower) ||
@@ -70,97 +44,88 @@ function AccountManager() {
       <Logo text="Account manager" />
 
       <div style={styles.container}>
-        {loading ? (
-          <div style={styles.loadingContainer}>
-            <div style={styles.loadingSpinner}></div>
-            <p style={styles.loadingText}>Chargement des clients...</p>
+        <>
+          <div style={styles.searchContainer}>
+            <input
+              type="text"
+              placeholder="Rechercher par ID client ou nom..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={styles.searchInput}
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm("")}
+                style={styles.clearButton}
+              >
+                ✕
+              </button>
+            )}
           </div>
-        ) : (
-          <>
-            <div style={styles.searchContainer}>
-              <input
-                type="text"
-                placeholder="Rechercher par ID client ou nom..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={styles.searchInput}
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm("")}
-                  style={styles.clearButton}
-                >
-                  ✕
-                </button>
-              )}
-            </div>
 
-            <div style={styles.clientsContainer}>
-              {filteredClients.length === 0 ? (
-                <div style={styles.emptyState}>
-                  <p style={styles.emptyText}>
-                    {searchTerm
-                      ? "Aucun client trouvé pour cette recherche"
-                      : "Aucun client trouvé"}
-                  </p>
-                </div>
-              ) : (
-                filteredClients.map((client) => (
-                  <div key={client._id} style={styles.clientCard}>
-                    <div style={styles.cardHeader}>
-                      <h3 style={styles.clientName}>{client.customer_name}</h3>
-                      <div
-                        style={{
-                          ...styles.statusBadge,
-                          backgroundColor: client.actif ? "#4CAF50" : "#f44336",
-                        }}
-                      >
-                        {client.actif ? "Actif" : "Inactif"}
-                      </div>
-                    </div>
-
-                    <div style={styles.cardContent}>
-                      <div style={styles.infoRow}>
-                        <span style={styles.label}>ID Client:</span>
-                        <span style={styles.value}>
-                          {client.unique_account_id}
-                        </span>
-                      </div>
-
-                      <div style={styles.infoRow}>
-                        <span style={styles.label}>SAT:</span>
-                        <span style={styles.value}>{client.sat}</span>
-                      </div>
-
-                      <div style={styles.infoRow}>
-                        <span style={styles.label}>Customer Lookup:</span>
-                        <span style={styles.value}>
-                          {client.customer_lookup}
-                        </span>
-                      </div>
-
-                      <div style={styles.infoRow}>
-                        <span style={styles.label}>Date d'upload:</span>
-                        <span style={styles.value}>
-                          {formatDate(client.dateuploaded)}
-                        </span>
-                      </div>
-
-                      {client.datefinished && (
-                        <div style={styles.infoRow}>
-                          <span style={styles.label}>Date de fin:</span>
-                          <span style={styles.value}>
-                            {formatDate(client.datefinished)}
-                          </span>
-                        </div>
-                      )}
+          <div style={styles.clientsContainer}>
+            {filteredClients.length === 0 ? (
+              <div style={styles.emptyState}>
+                <p style={styles.emptyText}>
+                  {searchTerm
+                    ? "Aucun client trouvé pour cette recherche"
+                    : "Aucun client trouvé"}
+                </p>
+              </div>
+            ) : (
+              filteredClients.map((client) => (
+                <div key={client._id} style={styles.clientCard}>
+                  <div style={styles.cardHeader}>
+                    <h3 style={styles.clientName}>{client.customer_name}</h3>
+                    <div
+                      style={{
+                        ...styles.statusBadge,
+                        backgroundColor: client.actif ? "#4CAF50" : "#f44336",
+                      }}
+                    >
+                      {client.actif ? "Actif" : "Inactif"}
                     </div>
                   </div>
-                ))
-              )}
-            </div>
-          </>
-        )}
+
+                  <div style={styles.cardContent}>
+                    <div style={styles.infoRow}>
+                      <span style={styles.label}>ID Client:</span>
+                      <span style={styles.value}>
+                        {client.unique_account_id}
+                      </span>
+                    </div>
+
+                    <div style={styles.infoRow}>
+                      <span style={styles.label}>SAT:</span>
+                      <span style={styles.value}>{client.sat}</span>
+                    </div>
+
+                    <div style={styles.infoRow}>
+                      <span style={styles.label}>Customer Lookup:</span>
+                      <span style={styles.value}>{client.customer_lookup}</span>
+                    </div>
+
+                    <div style={styles.infoRow}>
+                      <span style={styles.label}>Date d'upload:</span>
+                      <span style={styles.value}>
+                        {formatDate(client.dateuploaded)}
+                      </span>
+                    </div>
+
+                    {client.datefinished && (
+                      <div style={styles.infoRow}>
+                        <span style={styles.label}>Date de fin:</span>
+                        <span style={styles.value}>
+                          {formatDate(client.datefinished)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </>
       </div>
     </>
   );
