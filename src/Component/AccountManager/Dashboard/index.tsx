@@ -14,11 +14,12 @@ interface IData {
 function DashboardIndex() {
   const [data, setData] = React.useState<IData>();
   const [loading, setLoading] = React.useState(true);
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
-  const changePage = (donner: ICustomerManager[]) => {
-    navigation("/account_client", { state: { clients: donner } });
+  const changePage = (clients: ICustomerManager[]) => {
+    navigate("/account_client", { state: { clients } });
   };
+
   const loadingData = async () => {
     try {
       setLoading(true);
@@ -26,21 +27,16 @@ function DashboardIndex() {
         `${account_manager}/myDashboard`,
         config
       );
-      if (response.status === 200) {
-        setData(response.data);
-      }
+      if (response.status === 200) setData(response.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
   React.useEffect(() => {
-    const initialize = async () => {
-      await loadingData();
-    };
-    initialize();
+    loadingData();
   }, []);
 
   const styles = {
@@ -51,13 +47,13 @@ function DashboardIndex() {
     },
     header: {
       marginBottom: "30px",
+      textAlign: "center" as const,
     },
     title: {
       fontSize: "28px",
       fontWeight: "bold",
       color: "#1e293b",
-      marginBottom: "10px",
-      textAlign: "center" as const,
+      marginTop: "10px",
     },
     statsContainer: {
       display: "grid",
@@ -67,43 +63,10 @@ function DashboardIndex() {
       margin: "0 auto",
     },
     statCard: {
-      backgroundColor: "white",
       borderRadius: "16px",
       padding: "32px",
-      boxShadow:
-        "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-      border: "1px solid #e2e8f0",
-      transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
       cursor: "pointer",
-    },
-    statCardHover: {
-      transform: "translateY(-4px)",
-      boxShadow:
-        "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-    },
-    statTitle: {
-      fontSize: "18px",
-      fontWeight: "600",
-      color: "#475569",
-      marginBottom: "8px",
-    },
-    statNumber: {
-      fontSize: "48px",
-      fontWeight: "bold",
-      color: "#1e293b",
-      marginBottom: "8px",
-    },
-    statDescription: {
-      fontSize: "14px",
-      color: "#64748b",
-    },
-    visitedCard: {
-      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      color: "white",
-    },
-    notVisitedCard: {
-      background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-      color: "white",
+      transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
     },
     loadingContainer: {
       display: "flex",
@@ -119,10 +82,130 @@ function DashboardIndex() {
       borderRadius: "50%",
       animation: "spin 1s linear infinite",
     },
-    "@keyframes spin": {
-      "0%": { transform: "rotate(0deg)" },
-      "100%": { transform: "rotate(360deg)" },
-    },
+  };
+
+  const StatCard = ({
+    title,
+    number,
+    description,
+    gradient,
+    onClick,
+  }: {
+    title: string;
+    number: number;
+    description: string;
+    gradient: string;
+    onClick: () => void;
+  }) => (
+    <div
+      style={{
+        ...styles.statCard,
+        background: gradient,
+        color: "white",
+        boxShadow:
+          "0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1)",
+      }}
+      onClick={onClick}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-4px)";
+        e.currentTarget.style.boxShadow =
+          "0 10px 25px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow =
+          "0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1)";
+      }}
+    >
+      <div style={{ fontSize: "18px", fontWeight: "600", marginBottom: "8px" }}>
+        {title}
+      </div>
+      <div
+        style={{ fontSize: "48px", fontWeight: "bold", marginBottom: "8px" }}
+      >
+        {number}
+      </div>
+      <div style={{ fontSize: "14px", opacity: 0.9 }}>{description}</div>
+    </div>
+  );
+
+  const renderEligibility = () => {
+    if (!data) return null;
+    const total = data.visites.length + data.no_visites.length;
+    const styles = {
+      card: {
+        marginTop: "24px",
+        padding: "20px",
+        borderRadius: "16px",
+        background: "white",
+        boxShadow:
+          "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)",
+        textAlign: "center" as const,
+        maxWidth: "500px",
+        marginInline: "auto",
+      },
+      percentage: {
+        fontSize: "32px",
+        fontWeight: "bold",
+        marginBottom: "10px",
+        color: "#1e293b",
+      },
+      text: {
+        fontSize: "16px",
+        marginBottom: "8px",
+        color: "#475569",
+      },
+      success: {
+        color: "#16a34a",
+        fontWeight: "600",
+        fontSize: "18px",
+        marginTop: "10px",
+      },
+      danger: {
+        color: "#dc2626",
+        fontWeight: "600",
+        fontSize: "18px",
+      },
+    };
+    if (total <= 150) {
+      const ratio = data.visites.length / total;
+      const percentage = (ratio * 100).toFixed(0);
+
+      return (
+        <div style={styles.card}>
+          <div style={styles.percentage}>{percentage}% de clients visités</div>
+          {ratio >= 0.8 ? (
+            <p style={styles.success}>✅ Transport & Comission</p>
+          ) : (
+            <div>
+              <p style={styles.danger}>❌ Transport & Comission</p>
+              <p style={styles.success}>
+                Il vous reste {((80 * total) / 100).toFixed(0)} visites pour
+                être éligible au transport et commission
+              </p>
+            </div>
+          )}
+        </div>
+      );
+    }
+    return (
+      <div style={styles.card}>
+        <div style={styles.percentage}>
+          {data.visites.length} clients visités
+        </div>
+        {data.visites.length >= 100 ? (
+          <p style={styles.success}>✅ Transport & Comission</p>
+        ) : (
+          <div>
+            <p style={styles.danger}>❌ Transport & Comission</p>
+            <p style={styles.success}>
+              Il vous reste {100 - data.visites.length} visites pour être
+              éligible au transport et commission
+            </p>
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -138,88 +221,31 @@ function DashboardIndex() {
             <>
               <div style={styles.header}>
                 <Logo
-                  text={` Vous avez une base de
-                  ${data?.no_visites.length + data?.visites.length} clients à
-                  tracker`}
+                  text={`Vous avez une base de ${
+                    data.no_visites.length + data.visites.length
+                  } clients à tracker`}
                 />
-                <h1 style={styles.title}></h1>
+                <h1 style={styles.title}>Tableau de bord</h1>
               </div>
-              <div style={styles.statsContainer}>
-                <div
-                  style={{
-                    ...styles.statCard,
-                    ...styles.visitedCard,
-                  }}
-                  onClick={() => changePage(data.visites)}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow =
-                      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)";
-                  }}
-                >
-                  <div
-                    style={{
-                      ...styles.statTitle,
-                      color: "rgba(255, 255, 255, 0.9)",
-                    }}
-                  >
-                    Clients visités
-                  </div>
-                  <div style={{ ...styles.statNumber, color: "white" }}>
-                    {data.visites.length}
-                  </div>
-                  <div
-                    style={{
-                      ...styles.statDescription,
-                      color: "rgba(255, 255, 255, 0.8)",
-                    }}
-                  >
-                    Nombre total de clients qui sont déjà visités pour ce mois
-                  </div>
-                </div>
 
-                <div
-                  style={{
-                    ...styles.statCard,
-                    ...styles.notVisitedCard,
-                  }}
+              <div style={styles.statsContainer}>
+                <StatCard
+                  title="Clients visités"
+                  number={data.visites.length}
+                  description="Nombre total de clients visités ce mois"
+                  gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                  onClick={() => changePage(data.visites)}
+                />
+
+                <StatCard
+                  title="Clients non visités"
+                  number={data.no_visites.length}
+                  description="Clients en attente de visite"
+                  gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
                   onClick={() => changePage(data.no_visites)}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow =
-                      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)";
-                  }}
-                >
-                  <div
-                    style={{
-                      ...styles.statTitle,
-                      color: "rgba(255, 255, 255, 0.9)",
-                    }}
-                  >
-                    Clients non visités
-                  </div>
-                  <div style={{ ...styles.statNumber, color: "white" }}>
-                    {data.no_visites.length}
-                  </div>
-                  <div
-                    style={{
-                      ...styles.statDescription,
-                      color: "rgba(255, 255, 255, 0.8)",
-                    }}
-                  >
-                    Clients en attente de visite
-                  </div>
-                </div>
+                />
+
+                {renderEligibility()}
               </div>
             </>
           )

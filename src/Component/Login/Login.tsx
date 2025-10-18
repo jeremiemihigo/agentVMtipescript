@@ -50,9 +50,6 @@ function Login() {
 
       if (response.data.token) {
         localStorage.setItem("auth", response.data.token);
-        localStorage.setItem("codeAgent", response.data.codeAgent);
-        localStorage.setItem("codeZone", response.data.codeZone);
-        localStorage.setItem("nom", response.data.nom);
         window.location.replace("/operation");
       } else {
         setMessage("Incorrect");

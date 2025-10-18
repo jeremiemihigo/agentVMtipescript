@@ -1,5 +1,3 @@
-import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
 import LogoBboxx from "../assets/bboxx.png";
 import "./static.style.css";
 
@@ -17,30 +15,8 @@ function Logo(props: Props) {
       }}
     >
       <div className="titre">
-        <img src={LogoBboxx} alt="bboxxPages" />
+        <img src={LogoBboxx} alt="bboxxPages" style={{ borderRadius: "50%" }} />
         <p> {text}</p>
-      </div>
-      <div>
-        <Link
-          to="/operation"
-          style={{
-            textDecoration: "none",
-          }}
-        >
-          <Typography
-            component="p"
-            style={{
-              padding: "0px",
-              color: "blue",
-              fontWeight: "bolder",
-              margin: "0px",
-              fontSize: "12px",
-              marginRight: "15px",
-            }}
-          >
-            Dashboard
-          </Typography>
-        </Link>
       </div>
     </div>
   );

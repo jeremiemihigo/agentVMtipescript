@@ -74,6 +74,7 @@ function Liste(props: Props) {
                   sx={{
                     background: "rgb(0, 169, 224)",
                     display: "flex",
+                    padding: "10px",
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}

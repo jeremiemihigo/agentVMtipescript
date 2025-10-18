@@ -5,8 +5,8 @@ import Header from "../Header";
 
 interface ICustomerManager {
   _id: string;
-  unique_account_id: string;
-  customer_name: string;
+  customer: string;
+  nomClient: string;
   sat: string;
   id_Account_manager: string;
   customer_lookup: string;
@@ -27,8 +27,8 @@ function AccountManager() {
     const filtered = clients.filter((client: ICustomerManager) => {
       const searchLower = searchTerm.toLowerCase();
       return (
-        client.unique_account_id.toLowerCase().includes(searchLower) ||
-        client.customer_name.toLowerCase().includes(searchLower)
+        client.customer.toLowerCase().includes(searchLower) ||
+        client.nomClient.toLowerCase().includes(searchLower)
       );
     });
     setFilteredClients(filtered);
@@ -76,23 +76,13 @@ function AccountManager() {
               filteredClients.map((client) => (
                 <div key={client._id} style={styles.clientCard}>
                   <div style={styles.cardHeader}>
-                    <h3 style={styles.clientName}>{client.customer_name}</h3>
-                    <div
-                      style={{
-                        ...styles.statusBadge,
-                        backgroundColor: client.actif ? "#4CAF50" : "#f44336",
-                      }}
-                    >
-                      {client.actif ? "Actif" : "Inactif"}
-                    </div>
+                    <h3 style={styles.clientName}>{client.nomClient}</h3>
                   </div>
 
                   <div style={styles.cardContent}>
                     <div style={styles.infoRow}>
                       <span style={styles.label}>ID Client:</span>
-                      <span style={styles.value}>
-                        {client.unique_account_id}
-                      </span>
+                      <span style={styles.value}>{client.customer}</span>
                     </div>
 
                     <div style={styles.infoRow}>

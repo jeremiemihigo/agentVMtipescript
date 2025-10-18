@@ -9,3 +9,12 @@ export interface ICustomerManager {
   datefinished: number;
   visites?: [];
 }
+export interface IEngagement {
+  region: string;
+  shop: string;
+  customer_name: string;
+  customer_id: string;
+  customer_cu: string;
+  id_account_manager: string;
+  engagement: "OUI" | "NON";
+}
