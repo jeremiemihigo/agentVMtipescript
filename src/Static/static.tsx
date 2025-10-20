@@ -1,4 +1,4 @@
-// export const lien = "http://localhost:5000/bboxx/support";
+//export const lien = "http://localhost:5000/bboxx/support";
 //  export const lien_image = "http://localhost:4000/bboxx/image";
 // export const lien = "http://localhost:4000/bboxx/support";
 // export const lien_image = "http://109.199.122.241:5000/bboxx/image";
