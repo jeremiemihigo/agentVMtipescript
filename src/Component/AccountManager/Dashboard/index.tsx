@@ -167,7 +167,7 @@ function DashboardIndex() {
         fontSize: "18px",
       },
     };
-    if (total <= 150) {
+    if (total < 150) {
       const ratio = data.visites.length / total;
       const percentage = (ratio * 100).toFixed(0);
 
@@ -180,8 +180,8 @@ function DashboardIndex() {
             <div>
               <p style={styles.danger}>❌ Transport & Comission</p>
               <p style={styles.success}>
-                Il vous reste {((80 * total) / 100).toFixed(0)} visites pour
-                être éligible au transport et commission
+                Il vous reste {(total * 0.8 - data.visites.length).toFixed(0)}{" "}
+                visites pour être éligible au transport et commission
               </p>
             </div>
           )}

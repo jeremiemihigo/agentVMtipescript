@@ -24,6 +24,7 @@ export interface IReponse {
   createdAt: Date;
   followup: boolean;
   demande: IDemande;
+  statut: "PENDING" | "REJECTED" | "APPROVED";
 }
 export interface IDouble {
   codeAgent: string;

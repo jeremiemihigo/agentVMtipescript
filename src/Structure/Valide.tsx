@@ -53,6 +53,39 @@ function Liste(props: Props) {
       <div style={{ marginBottom: "10px" }}>
         <Input onChange={(e) => handleChange(e)} placeholder="Search" />
       </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          padding: "20px",
+          backgroundColor: "#f5f5f5",
+          borderRadius: "8px",
+          marginBottom: "10px",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <p style={{ margin: 0, fontWeight: "bold" }}>Visite validée</p>
+          <p style={{ margin: 0, fontSize: "1.2em", color: "green" }}>
+            {donner.filter((x) => x.reponse[0].statut === "APPROVED").length}
+          </p>
+        </div>
+
+        <div style={{ textAlign: "center" }}>
+          <p style={{ margin: 0, fontWeight: "bold" }}>Visite refusée</p>
+          <p style={{ margin: 0, fontSize: "1.2em", color: "red" }}>
+            {donner.filter((x) => x.reponse[0].statut === "REJECTED").length}
+          </p>
+        </div>
+
+        <div style={{ textAlign: "center" }}>
+          <p style={{ margin: 0, fontWeight: "bold" }}>Visite en attente</p>
+          <p style={{ margin: 0, fontSize: "1.2em", color: "orange" }}>
+            {donner.filter((x) => x.reponse[0].statut === "PENDING").length}
+          </p>
+        </div>
+      </div>
+
       <div className="listeReponses">
         {filterFn.fn(donner).map((index: IDemande, key: number) => {
           return (
@@ -67,7 +100,6 @@ function Liste(props: Props) {
                 stiffness: 80,
               }}
             >
-              {" "}
               <React.Fragment>
                 <Paper
                   className="paper"
@@ -77,6 +109,7 @@ function Liste(props: Props) {
                     padding: "10px",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    marginBottom: "5px",
                   }}
                   onClick={() => setValidate(index.reponse[0]._id)}
                 >
@@ -85,6 +118,19 @@ function Liste(props: Props) {
                       {index.reponse[0].codeclient +
                         "; " +
                         index.reponse[0].PayementStatut}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "12px",
+                        marginTop: "10px",
+                        textAlign: "center",
+                      }}
+                    >
+                      {index.reponse[0].statut === "PENDING"
+                        ? "La visite doit etre validee par le RS ou SM"
+                        : index.reponse[0].statut === "REJECTED"
+                        ? "Visite rejettée au niveau du shop"
+                        : "Visite confirmée"}{" "}
                     </p>
                   </div>
                   <div>
