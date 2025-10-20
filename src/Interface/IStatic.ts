@@ -4,7 +4,6 @@ export interface IRaison {
   plateforme: [string];
 }
 export interface ISat {
-  idSat: string;
   nom_SAT: string;
   shop: string;
   region: string;
