@@ -188,115 +188,148 @@ const ActeEngagementProvider: React.FC<ActeEngagementProviderProps> = ({
       duration: 5,
     });
   };
+  const returnIsCorrect = () => {
+    if (refus === "OUI") {
+      const premierEng = initialActe.premier_engagement.montant
+        ? parseFloat(initialActe.premier_engagement.montant)
+        : 0;
+      const deuxieme = initialActe.deuxieme_engagement.montant
+        ? parseFloat(initialActe.deuxieme_engagement.montant)
+        : 0;
+      const troisieme = initialActe.troisieme_engagement.montant
+        ? parseFloat(initialActe.troisieme_engagement.montant)
+        : 0;
+      if (
+        premierEng + deuxieme + troisieme ===
+        parseFloat(initialActe.montant)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  };
   const sendData = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       e.preventDefault();
-      setLoadings(true);
-      if (raisonSelect?.idFeedback === "2" && itemswap.length === 0) {
-        successAlert(
-          "Veuillez sélectionner le(s) matériel(s) que le client souhaite échanger",
-          "error"
-        );
-      } else if (
-        !initial?.reference ||
-        satSelect === null ||
-        !initial?.cell ||
-        typephoto === "" ||
-        !raisonSelect ||
-        (raisonSelect?.idFeedback === "autre" && raisonRwrite === "") ||
-        value === ""
-      ) {
-        successAlert(
-          "Veuillez renseigner les champs ayant l'asterisque ainsi que la photo",
-          "error"
-        );
-      } else if (
-        (refus === "NON" &&
-          (initialActe.raison_refus === "" ||
-            initialActe.feedback_account_manager === "")) ||
-        (refus === "ABSENT" && appeller === "") ||
-        (refus === "OUI" &&
-          (initialActe.montant === "" ||
-            initialActe.premier_engagement.montant === "" ||
-            initialActe.premier_engagement.date === "" ||
-            initialActe.deuxieme_engagement.montant === "" ||
-            initialActe.deuxieme_engagement.date === "" ||
-            initialActe.troisieme_engagement.montant === "" ||
-            initialActe.troisieme_engagement.date === "" ||
-            initialActe.feedback_account_manager === "" ||
-            !compressedFileActe.acte_engagement ||
-            !compressedFileActe.acte_engagement_client ||
-            !compressedFileActe.googlemap))
-      ) {
-        successAlert(
-          "Veuillez renseigner les champs ayant l'asterisque",
-          "error"
-        );
-      } else {
-        let raison =
-          raisonSelect?.idFeedback === "autre"
-            ? raisonRwrite
-            : raisonSelect?.idFeedback;
-        let days = initial?.jours ? initial?.jours : 0;
-        const data = new FormData();
-        data.append("file", compressedFile as Blob);
-        data.append(
-          "acte_engagement",
-          compressedFileActe.acte_engagement as Blob
-        );
-        data.append(
-          "acte_engagement_client",
-          compressedFileActe.acte_engagement_client as Blob
-        );
-        data.append("refus_signer", refus);
-        data.append("raison_refus_signer", initialActe.raison_refus);
-        data.append("feedback_agent", initialActe.feedback_account_manager);
-        data.append("type_action", action);
-        data.append("googlemap", compressedFileActe.googlemap as Blob);
-        data.append("longitude", "" + location?.longitude);
-        data.append("latitude", "" + location?.latitude);
-        data.append("altitude", "" + location?.altitude);
-        data.append("codeAgent", userConnect.codeAgent);
-        data.append("codeZone", userConnect.codeZone);
-        data.append("fonctionAgent", userConnect.fonction);
-        data.append("codeclient", "" + initial?.codeclient);
-        data.append("statut", value);
-        data.append("appeller", appeller);
-        data.append("raison", "" + raison);
-        data.append("itemswap", itemswap.length > 0 ? itemswap.join(";") : "");
-        data.append("sector", initial?.sector);
-        data.append("cell", initial?.cell);
-        data.append("typeImage", typephoto);
-        data.append("reference", initial?.reference);
-        data.append("sat", satSelect?.nom_SAT);
-        data.append("numero", "" + initial?.numero);
-        data.append("commune", initial?.commune);
-        data.append("commentaire", "" + initial.commentaire);
-        data.append("type", "acteengagement");
-        data.append("jours", "" + days);
-
-        data.append("montant", initialActe.montant);
-        data.append(
-          "premier_engagement",
-          JSON.stringify(initialActe.premier_engagement)
-        );
-        data.append(
-          "deuxieme_engagement",
-          JSON.stringify(initialActe.deuxieme_engagement)
-        );
-        data.append(
-          "troisieme_engagement",
-          JSON.stringify(initialActe.troisieme_engagement)
-        );
-
-        const response = await axios.post(lien + "/demande", data, config);
-        if (response.status === 200) {
-          window.location.replace("/demande_acteengagement");
+      if (returnIsCorrect()) {
+        setLoadings(true);
+        if (raisonSelect?.idFeedback === "2" && itemswap.length === 0) {
+          successAlert(
+            "Veuillez sélectionner le(s) matériel(s) que le client souhaite échanger",
+            "error"
+          );
+        } else if (
+          !initial?.reference ||
+          satSelect === null ||
+          !initial?.cell ||
+          typephoto === "" ||
+          !raisonSelect ||
+          (raisonSelect?.idFeedback === "autre" && raisonRwrite === "") ||
+          value === ""
+        ) {
+          successAlert(
+            "Veuillez renseigner les champs ayant l'asterisque ainsi que la photo",
+            "error"
+          );
+        } else if (
+          (refus === "NON" &&
+            (initialActe.raison_refus === "" ||
+              initialActe.feedback_account_manager === "")) ||
+          (refus === "ABSENT" && appeller === "") ||
+          (refus === "OUI" &&
+            (initialActe.montant === "" ||
+              initialActe.premier_engagement.montant === "" ||
+              initialActe.premier_engagement.date === "" ||
+              initialActe.deuxieme_engagement.montant === "" ||
+              initialActe.deuxieme_engagement.date === "" ||
+              initialActe.troisieme_engagement.montant === "" ||
+              initialActe.troisieme_engagement.date === "" ||
+              initialActe.feedback_account_manager === "" ||
+              !compressedFileActe.acte_engagement ||
+              !compressedFileActe.acte_engagement_client ||
+              !compressedFileActe.googlemap))
+        ) {
+          successAlert(
+            "Veuillez renseigner les champs ayant l'asterisque",
+            "error"
+          );
         } else {
-          successAlert("" + response.data, "error");
+          let raison =
+            raisonSelect?.idFeedback === "autre"
+              ? raisonRwrite
+              : raisonSelect?.idFeedback;
+          let days = initial?.jours ? initial?.jours : 0;
+          const data = new FormData();
+          data.append("file", compressedFile as Blob);
+          data.append(
+            "acte_engagement",
+            compressedFileActe.acte_engagement as Blob
+          );
+          data.append(
+            "acte_engagement_client",
+            compressedFileActe.acte_engagement_client as Blob
+          );
+          data.append("refus_signer", refus);
+          data.append("raison_refus_signer", initialActe.raison_refus);
+          data.append("feedback_agent", initialActe.feedback_account_manager);
+          data.append("type_action", action);
+          data.append("googlemap", compressedFileActe.googlemap as Blob);
+          data.append("longitude", "" + location?.longitude);
+          data.append("latitude", "" + location?.latitude);
+          data.append("altitude", "" + location?.altitude);
+          data.append("codeAgent", userConnect.codeAgent);
+          data.append("codeZone", userConnect.codeZone);
+          data.append("fonctionAgent", userConnect.fonction);
+          data.append("codeclient", "" + initial?.codeclient);
+          data.append("statut", value);
+          data.append("appeller", appeller);
+          data.append("raison", "" + raison);
+          data.append(
+            "itemswap",
+            itemswap.length > 0 ? itemswap.join(";") : ""
+          );
+          data.append("sector", initial?.sector);
+          data.append("cell", initial?.cell);
+          data.append("typeImage", typephoto);
+          data.append("reference", initial?.reference);
+          data.append("sat", satSelect?.nom_SAT);
+          data.append("numero", "" + initial?.numero);
+          data.append("commune", initial?.commune);
+          data.append("commentaire", "" + initial.commentaire);
+          data.append("type", "acteengagement");
+          data.append("jours", "" + days);
+
+          data.append("montant", initialActe.montant);
+          data.append(
+            "premier_engagement",
+            JSON.stringify(initialActe.premier_engagement)
+          );
+          data.append(
+            "deuxieme_engagement",
+            JSON.stringify(initialActe.deuxieme_engagement)
+          );
+          data.append(
+            "troisieme_engagement",
+            JSON.stringify(initialActe.troisieme_engagement)
+          );
+
+          const response = await axios.post(lien + "/demande", data, config);
+          if (response.status === 200) {
+            window.location.replace("/demande_acteengagement");
+          } else {
+            successAlert("" + response.data, "error");
+          }
         }
+        setLoadings(false);
+      } else {
+        successAlert(
+          "Une différence a été constatée entre le montant facturé et le montant attendu",
+          "error"
+        );
       }
-      setLoadings(false);
     } catch (error: any) {
       setLoadings(false);
       if (error.code === "ERR_NETWORK") {
