@@ -28,7 +28,6 @@ function ActeEngagement() {
       if (response.status === 200) {
         setData(response.data);
       }
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -89,6 +88,7 @@ function ActeEngagement() {
                     <th className="border border-gray-300 p-2">ID</th>
                     <th className="border border-gray-300 p-2">Name</th>
                     <th className="border border-gray-300 p-2">C.U</th>
+                    <th className="border border-gray-300 p-2">Engagement ?</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -102,6 +102,9 @@ function ActeEngagement() {
                       </td>
                       <td className="border border-gray-300 p-2">
                         {customer.customer_cu}
+                      </td>
+                      <td className="border border-gray-300 p-2">
+                        {customer.engagement}
                       </td>
                     </tr>
                   ))}
