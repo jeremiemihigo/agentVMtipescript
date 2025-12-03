@@ -25,52 +25,53 @@ interface IOptions {
   color?: string;
 }
 
+const title: IOptions[] = [
+  {
+    id: 1,
+    title: "Pack",
+    link: "/paquet",
+    icon: <Inventory fontSize="large" />,
+    badget: false,
+    color: "#4CAF50",
+  },
+  {
+    id: 2,
+    title: "Request",
+    link: "/type_demande",
+    icon: <Visibility fontSize="large" />,
+    badget: false,
+    color: "#2196F3",
+  },
+  {
+    id: 4,
+    title: "Changing password",
+    link: "/profil",
+    icon: <AccountBox fontSize="large" />,
+    badget: false,
+    color: "#FF9800",
+  },
+  {
+    id: 5,
+    title: "All customer visits",
+    link: "/recherche",
+    icon: <Search fontSize="large" />,
+    badget: false,
+    color: "#9C27B0",
+  },
+  {
+    id: 6,
+    title: "Communication",
+    link: "/communication",
+    icon: <KeyboardVoice fontSize="large" />,
+    badget: true,
+    color: "#F44336",
+  },
+];
+
 export default function BasicTabs() {
   const userConnect: IUser = useSelector((state: any) => state.user?.user);
 
   const navigation = useNavigate();
-  const title: IOptions[] = [
-    {
-      id: 1,
-      title: "Pack",
-      link: "/paquet",
-      icon: <Inventory fontSize="large" />,
-      badget: false,
-      color: "#4CAF50",
-    },
-    {
-      id: 2,
-      title: "Request",
-      link: "/type_demande",
-      icon: <Visibility fontSize="large" />,
-      badget: false,
-      color: "#2196F3",
-    },
-    {
-      id: 4,
-      title: "Changing password",
-      link: "/profil",
-      icon: <AccountBox fontSize="large" />,
-      badget: false,
-      color: "#FF9800",
-    },
-    {
-      id: 5,
-      title: "All customer visits",
-      link: "/recherche",
-      icon: <Search fontSize="large" />,
-      badget: false,
-      color: "#9C27B0",
-    },
-    {
-      id: 6,
-      title: "Communication",
-      link: "/mesactions",
-      icon: <KeyboardVoice fontSize="large" />,
-      badget: false,
-      color: "#F44336",
-    },
-  ];
 
   const changePage = (link: string) => {
     navigation(link);

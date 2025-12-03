@@ -1,0 +1,36 @@
+.papier {
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+.papier > p {
+  padding: 0;
+  margin: 0;
+}
+.papier .moment {
+  text-align: right;
+  font-size: 11px;
+  margin-top: 20px;
+  margin: 0;
+  padding: 0;
+}
+.papier .messages {
+  font-size: 13px;
+  text-align: justify;
+}
+.papier .object {
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+.html-viewer {
+  font-size: 13px;
+  line-height: 1.7rem;
+  text-align: justify;
+}
+.footer_message {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: right;
+  margin-top: 10px;
+}

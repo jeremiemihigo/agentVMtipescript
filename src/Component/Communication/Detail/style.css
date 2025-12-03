@@ -1,0 +1,22 @@
+.file {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.file .file_image > img {
+  width: 20px !important;
+  height: 20px;
+  margin-right: 5px;
+}
+.file .file_name > p {
+  padding: 0px;
+  margin: 0px;
+  margin-left: 5px;
+  font-size: 12px;
+}
+.iconoutlook > img {
+  height: 25px;
+  width: 25px;
+}

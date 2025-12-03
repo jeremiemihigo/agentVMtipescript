@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { ICommuniquer } from "../Interface/ICommuniquer";
-import { config, lien } from "../Static/static";
+import { config, lien, communication } from "../Static/static";
 
 // Define the initial state type
 
@@ -24,7 +24,7 @@ export const ReadCommuniquer = createAsyncThunk(
   "communiquer/ReadCommuniquer",
   async (_id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${lien}/communicationAgent`, config);
+      const response = await axios.get(`${communication}/mes_messages`, config);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;

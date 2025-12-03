@@ -1,0 +1,256 @@
+.communication-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  background: #fff;
+  margin-left: 10px;
+  overflow: hidden;
+  border: 1px solid #ebeef0;
+}
+
+.communication-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f8f9fb;
+  border-bottom: 1px solid #e9ebee;
+  justify-content: space-between;
+}
+
+.communication-header .user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #e5e7ea;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.communication-header-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.communication-header-info .user-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #1b2430;
+}
+
+.communication-header-info .user-status {
+  color: #41bf3f;
+  font-size: 0.95rem;
+}
+
+.communication-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.communication-header-actions .action-btn {
+  background: none;
+  border: none;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transition: color 0.16s;
+  color: #4d5767;
+}
+.communication-header-actions .action-btn:hover {
+  color: #2d97fd;
+}
+
+.communication-messages {
+  flex: 1;
+  padding: 20px 18px 16px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.communication-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 78%;
+  padding: 10px;
+}
+
+.communication-user-message {
+  align-self: flex-end;
+  background: #daf6d7;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.communication-support-message {
+  align-self: flex-start;
+  background: #fff;
+  border-radius: 16px 16px 16px 4px;
+  border: 1px solid #e6eef5;
+}
+
+.communication-message-content {
+  padding: 10px 13px;
+  font-size: 1rem;
+  color: #162037;
+  position: relative;
+}
+
+.communication-message-time {
+  font-size: 0.82rem;
+  color: #7c879b;
+  right: 0;
+}
+
+.communication-input-container {
+  padding: 10px 15px 16px 15px;
+  background: #f8f9fb;
+  border-top: 1px solid #e9ebee;
+}
+
+.communication-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f4f7fb;
+  border-radius: 24px;
+  padding: 6px 9px;
+  gap: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.attachment-btn,
+.emoji-btn,
+.send-btn {
+  background: none;
+  border: none;
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+.attachment-btn:hover,
+.emoji-btn:hover,
+.send-btn:not(:disabled):hover {
+  color: #2d97fd;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.communication-input {
+  flex: 1;
+  padding: 9px 10px;
+  font-size: 1rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #182242;
+}
+
+.communication-typing-indicator {
+  background: #fff1c8;
+  border-radius: 18px;
+  padding: 7px 16px;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.communication-typing-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.communication-typing-dots span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #e0b700;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: communication-typing-dot-blink 1s infinite alternate;
+}
+.communication-typing-dots span:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.communication-typing-dots span:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes communication-typing-dot-blink {
+  to {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+@media (max-width: 550px) {
+  .communication-container {
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+  .communication-header,
+  .communication-header {
+    padding: 12px 10px;
+  }
+  .communication-input-container .communication-input-wrapper {
+    flex-direction: column;
+    gap: 6px;
+    padding: 5px 6px;
+  }
+  .communication-message-content {
+    font-size: 0.98rem;
+    padding: 8px 10px;
+  }
+  .communication-message-avatar > img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+}
+.communication-message-avatar {
+  display: flex;
+}
+.communication-message-avatar-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.communication-message-avatar-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #18344b;
+  margin-bottom: 2px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  padding: 0;
+  margin: 0;
+}
+
+.communication-message-avatar-status {
+  font-size: 0.78rem;
+  color: #7e8794;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+}
+.flexcontent {
+  display: flex;
+  align-items: center;
+}
+.contact-details > p {
+  padding: 0;
+  margin: 0;
+}
+.contact-details .object {
+  font-size: 20px;
+  font-weight: bolder;
+}
+.contact-details .content {
+  font-size: 15px;
+  margin-bottom: 10px !important;
+  font-weight: 100;
+}

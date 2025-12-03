@@ -5,13 +5,14 @@ import DashboardIndex from "./Component/AccountManager/Dashboard";
 import ActeEngagement from "./Component/ActeEngagement";
 import ActionSynchro from "./Component/ActionSynchro";
 import DetailPlainte from "./Component/ActionSynchro/DetailSynchro";
+import Communication from "./Component/Communication";
+import DetailCommunication from "./Component/Communication/Detail";
 import DemandeActeEngagement from "./Component/Demande/ActeEngagement";
 import TypeDemande from "./Component/Demande/TypeDemande";
 import Demande from "./Component/Demande/VisiteMenage";
 import DemandeUpdate from "./Component/Demande/VisiteMenage/UpdateDemande";
 import Documentation from "./Component/Documentation";
 import Login from "./Component/Login/Login";
-import Mesactions from "./Component/MesAction";
 import Paquet from "./Component/Paquet";
 import Profil from "./Component/Profil";
 import Recherche from "./Component/Recherche";
@@ -35,7 +36,11 @@ function App() {
         <Route path="/action" element={<ActionSynchro />} />
         <Route path="/info" element={<DetailPlainte />} />
         <Route path="/update" element={<DemandeUpdate />} />
-        <Route path="/mesactions" element={<Mesactions />} />
+        <Route path="/communication" element={<Communication />} />
+        <Route
+          path="/communication_chat/:id"
+          element={<DetailCommunication />}
+        />
         <Route path="/account_manager" element={<DashboardIndex />} />
         <Route path="/account_client" element={<AccountManager />} />
         <Route path="/acte_engagement" element={<ActeEngagement />} />

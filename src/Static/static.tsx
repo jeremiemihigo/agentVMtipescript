@@ -13,7 +13,6 @@ export const big_data =
 //export const big_data = "http://localhost:5000/bboxx/support";
 export const account_manager = `${link}/account_manager`;
 export const lien_dash = `${link}/bboxx/dashboard`;
-//export const big_data = "https://visitetwo.bboxxvm.com/bboxx/support";
 
 export const lien = `${link}/bboxx/support`;
 export const lien_socket = link;
@@ -21,6 +20,8 @@ export const lien_image = `${link}/bboxx/image`;
 export const lien_issue = `${link}/issue`;
 export const lien_dt = `${link}/dt`;
 export const lien_terrain = `${link}/bboxx/terrain`;
+export const communication = `${link}/communication`;
+export const lien_file_communication = `${link}/bboxx/file/communication`;
 
 export const dateFrancais = (donner: string) => {
   let dates = new Date(donner);
