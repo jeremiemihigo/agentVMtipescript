@@ -11,7 +11,6 @@ import DemandeActeEngagement from "./Component/Demande/ActeEngagement";
 import TypeDemande from "./Component/Demande/TypeDemande";
 import Demande from "./Component/Demande/VisiteMenage";
 import DemandeUpdate from "./Component/Demande/VisiteMenage/UpdateDemande";
-import Documentation from "./Component/Documentation";
 import Login from "./Component/Login/Login";
 import Paquet from "./Component/Paquet";
 import Profil from "./Component/Profil";
@@ -30,7 +29,6 @@ function App() {
         />
         <Route path="/type_demande" element={<TypeDemande />} />
 
-        <Route path="/documentation" element={<Documentation />} />
         <Route path="/recherche" element={<Recherche />} />
         <Route path="/profil" element={<Profil />} />
         <Route path="/action" element={<ActionSynchro />} />
