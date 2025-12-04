@@ -1,4 +1,3 @@
-//export const lien = "http://localhost:5000/bboxx/support";
 //  export const lien_image = "http://localhost:4000/bboxx/image";
 // export const lien = "http://localhost:4000/bboxx/support";
 // export const lien_image = "http://109.199.122.241:5000/bboxx/image";
@@ -8,9 +7,7 @@ import React from "react";
 import { IDeedline, IDelai, ISat } from "../Interface/IStatic";
 const link = "https://visitemenagesbackend.bboxxvm.com";
 //const link = "http://localhost:5000";
-export const big_data =
-  "https://visitemenagesbackend.bboxxvm.com/bboxx/support";
-//export const big_data = "http://localhost:5000/bboxx/support";
+export const big_data = `${link}/bboxx/support`;
 export const account_manager = `${link}/account_manager`;
 export const lien_dash = `${link}/bboxx/dashboard`;
 

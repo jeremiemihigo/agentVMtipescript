@@ -41,6 +41,7 @@ export function getFileName(file?: FileLike): string {
   return "fichier";
 }
 
+import { Send } from "@mui/icons-material";
 import axios from "axios";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
@@ -67,19 +68,13 @@ const returnNameAgent = (message: IMessageContent) => {
   }
 };
 
-function stripHtml(html: string) {
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
-  return temp.textContent || temp.innerText || "";
-}
 type Props = {
   concerne: ICommuniquer;
 };
-interface FileUploaderProps {
-  uploadUrl: string; // URL de votre API d'upload
-}
+
 function Communication({ concerne }: Props) {
   const user = useSelector((state: any) => state.user.user);
+  const [send, setSend] = useState(false);
   const [messages, setMessages] = useState<IMessageContent[]>([]);
   const [load, setLoad] = useState(true);
   const loadingRecent = async () => {
@@ -120,6 +115,7 @@ function Communication({ concerne }: Props) {
 
   const handleSendMessage = async (event: any) => {
     event.preventDefault();
+    setSend(true);
     if (!newMessage.trim() && attachments.length === 0) return;
 
     const formData = new FormData();
@@ -139,6 +135,7 @@ function Communication({ concerne }: Props) {
     setMessages((prev) => [...prev, response.data]);
     setNewMessage("");
     setAttachments([]);
+    setSend(false);
   };
 
   const returnIconName = (file: IFileName) => {
@@ -198,7 +195,7 @@ function Communication({ concerne }: Props) {
     );
   };
 
-  const [preview, setPreview] = useState<string[]>([]);
+  //const [preview, setPreview] = useState<string[]>([]);
 
   const handleSelectFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -207,8 +204,8 @@ function Communication({ concerne }: Props) {
     setAttachments(selected);
 
     // Prévisualisation des images
-    const previews = selected.map((file) => URL.createObjectURL(file));
-    setPreview(previews);
+    //const previews = selected.map((file) => URL.createObjectURL(file));
+    //setPreview(previews);
   };
 
   return (
@@ -397,9 +394,9 @@ function Communication({ concerne }: Props) {
             type="submit"
             onClick={(event) => handleSendMessage(event)}
             className="communication-send-btn"
-            disabled={!newMessage.trim()}
+            disabled={!newMessage.trim() || send}
           >
-            ➤
+            {send ? "Sending..." : <Send fontSize="small" />}
           </button>
         </div>
       </form>

@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { ICommuniquer } from "../Interface/ICommuniquer";
-import { config, lien, communication } from "../Static/static";
+import { communication, config } from "../Static/static";
 
 // Define the initial state type
 
