@@ -5,7 +5,7 @@
 import _ from "lodash";
 import React from "react";
 import { IDeedline, IDelai, ISat } from "../Interface/IStatic";
-const link = "https://visitemenagesbackend.bboxxvm.com";
+const link = "https://callcentersupport.bboxxvm.com";
 //const link = "http://localhost:5000";
 export const big_data = `${link}/bboxx/support`;
 export const account_manager = `${link}/account_manager`;
